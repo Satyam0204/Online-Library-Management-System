@@ -1,0 +1,14 @@
+<b>Login</b>
+<form method="POST",action="">
+    {% csrf_token %}
+    <span>USERNAME</span>
+    <input name="username", type="text",placeholder="USERNAME " >
+    <span>PASSWORD</span>
+    <input type="text",name="password",placeholder="PASSWORD ">
+    <div class="d-flex justify-content-center mt-3 login_container">
+        <input class="btn login_btn" type="submit" value="Login">
+      </div>
+</form>
+{% for message in messages %}
+	<p id="messages">{{message}}</p>
+{% endfor %}	

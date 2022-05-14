@@ -1,0 +1,34 @@
+{% extends '/home/satyam/django/mysite/accounts/templates/accounts/main.html' %}
+ 
+{% block content %}
+
+<br>
+
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Books</h5>
+        </div>
+        <div class="card card-body">
+            <table class="table">
+                <tr>
+                    <th>Books</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+
+                {% for i in books %}
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.category}}</td>
+                    <td>{{i.cost}}</td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}
