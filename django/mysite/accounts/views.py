@@ -8,13 +8,13 @@ from .forms import CreateUserForm
 
 def home(request):
     
-    return render(request, '/home/satyam/django/mysite/accounts/templates/accounts/home.html')
+    return render(request, 'accounts/home.html')
 def customers(request):
-    return render(request, '/home/satyam/django/mysite/accounts/templates/accounts/customers.html')
+    return render(request, 'accounts/customers.html')
 def books(request):
 
     books=Book.objects.all()
-    return render(request, '/home/satyam/django/mysite/accounts/templates/accounts/books.html',{'books':books})
+    return render(request, 'accounts/books.html',{'books':books})
 
 def registerpage(request):
     form= CreateUserForm()
@@ -28,7 +28,7 @@ def registerpage(request):
             
 
     context={'form':form}
-    return render(request, '/home/satyam/django/mysite/accounts/templates/accounts/register.html',context)
+    return render(request, 'accounts/register.html',context)
 
 
 def loginpage(request):
@@ -45,4 +45,4 @@ def loginpage(request):
             messages.info(request, "Username OR Password is incorrect")
             
 
-    return render(request, '/home/satyam/django/mysite/accounts/templates/accounts/login.html')
+    return render(request, 'accounts/login.html')
