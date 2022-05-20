@@ -1,0 +1,8 @@
+<p>Are you sure you want to delete "{{review}}"?</p>
+
+<form action="{% url 'deletereview' review.id  %}" method="POST">
+  {% csrf_token %}
+  <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
+
+  <input class="btn btn-danger" type="submit" name="Confirm" />
+</form>

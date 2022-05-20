@@ -14,14 +14,15 @@
                 <tr>
                     <th>Books</th>
                     <th>Category</th>
-                    <th>Price</th>
+                    <th></th>
                 </tr>
 
                 {% for i in books %}
                 <tr>
                     <td>{{i.name}}</td>
                     <td>{{i.category}}</td>
-                    <td>{{i.cost}}</td>
+                    <td> <a class="btn btn-primary me-2" href="{% url 'addreview' %}" role="button">Add a Review</a></td>
+                    <td> <a class="btn btn-danger me-2" href="" role="button">Delete</a></td>
                 </tr>
                 {% endfor %}
                 

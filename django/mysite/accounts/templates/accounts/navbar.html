@@ -1,4 +1,9 @@
 {% load static %}
+<style>
+  .hello{
+    color:white;
+  }
+</style>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -11,11 +16,23 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="{% url 'books' %}">Books</a>
           </li>
+          {% if request.user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'customers' %}">Customers</a>
+          </li>
+          {% endif %}
         </ul>
-        
+        {% if user.is_authenticated %}
+        <span class="hello">Hello, {{request.user}}</span>
+        <a class="nav-link hello" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+        <a class="btn btn-success me-2" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-danger me-2" href="{% url 'register' %}" role="button">Register</a>
+        {% endif %}
       </div>
     </div>
     
