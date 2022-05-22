@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 
-from accounts.models import Book, Review
+from accounts.models import Book, Order
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -13,6 +13,11 @@ class CreateUserForm(UserCreationForm):
 
 class AddReview(ModelForm):
     class Meta:
-        model=Review
-        fields='__all__'
+        model=Order
+        fields=['customer','book', 'Review']
 
+
+class AddBook(ModelForm):
+    class Meta:
+        model=Book
+        fields='__all__'

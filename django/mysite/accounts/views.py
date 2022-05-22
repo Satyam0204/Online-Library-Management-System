@@ -1,3 +1,4 @@
+from ast import Delete
 from unicodedata import name
 from django.shortcuts import render, redirect  
 from django.contrib.auth.forms import UserCreationForm
@@ -5,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import AddReview, CreateUserForm
+from .forms import AddBook, AddReview, CreateUserForm
 from .decorators import unauthorizedUsers, allowedUsers
 from django.contrib.auth.models import Group
 # Create your views here.
@@ -13,8 +14,9 @@ from django.contrib.auth.models import Group
 
 
 def home(request):
-    
-    return render(request, 'accounts/home.html')
+    books=Book.objects.all()
+    context={'books':books}
+    return render(request, 'accounts/home.html',context)
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
@@ -29,8 +31,18 @@ def customers(request):
 def books(request):
 
     books=Book.objects.all()
-    review=Review.objects.all()
-    return render(request, 'accounts/books.html',{'books':books,'review':review})
+    
+    form=AddBook()
+   
+    
+    if request.method == 'POST' :
+            form= AddBook(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('books')
+    
+    
+    return render(request, 'accounts/books.html',{'books':books, 'form':form})
 
 def registerpage(request):
     form= CreateUserForm()
@@ -76,7 +88,6 @@ def logoutpage(request):
 def createReview(request):
     form=AddReview()
     if request.method == 'POST' :
-            print("printing post",request.POST)
             form= AddReview(request.POST)
             if form.is_valid():
                 form.save()
@@ -90,4 +101,9 @@ def userProfile(request):
 
 
 
-
+def deleteBook(request,pk):
+    book_delete=Book.objects.get(id=pk)
+    if request.method=='POST':
+        book_delete.delete()
+        return redirect('books')
+    return render (request,'accounts/delete.html',{'book_delete':book_delete})

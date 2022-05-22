@@ -3,8 +3,21 @@
 {% block content %}
 
 
-<br>
+    <br>
+    <div class="card-group"  >
 
-<h1><i class="fa fa-home" aria-hidden="true">Home</i></h1>
+        {% for i in books %}
+        
+        <div class="card" style="width: 30em; justify-content: center;">
+            <img style=" width:10em ;" src="{{i.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
+                <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
+                
+            </div>
+        </div>
+        
+        {% endfor %}
+    </div>
 
 {% endblock %}

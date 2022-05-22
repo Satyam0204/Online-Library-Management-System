@@ -1,8 +1,6 @@
-<p>Are you sure you want to delete "{{review}}"?</p>
-
-<form action="{% url 'deletereview' review.id  %}" method="POST">
-  {% csrf_token %}
-  <a class="btn btn-warning" href="{% url 'home' %}">Cancel</a>
-
-  <input class="btn btn-danger" type="submit" name="Confirm" />
+<h5>Are you sure you want to delete {{book_delete.name}} ??</h5>
+<form action="{% url 'deletebook' book_delete.id %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Delete">
+    
 </form>

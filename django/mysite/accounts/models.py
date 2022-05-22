@@ -1,7 +1,10 @@
 import email
+from email.mime import image
+from email.policy import default
 from operator import truth
 from telnetlib import STATUS
-
+from tkinter import CASCADE
+from django.contrib.auth.models import User
 from unicodedata import category
 from django.db import models
 
@@ -10,6 +13,7 @@ from django.db import models
 CATEGORY=(('Thriller','Thriller'),('Horror','Horror'),('Knowledge','Knowlegde'))
 class Customer(models.Model):
     name=models.CharField(max_length=200,null=True)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
     phone=models.CharField(max_length=200,null=True)
     email=models.EmailField(max_length=200,null=True)
     datecreated=models.DateTimeField(auto_now_add=True, null=True)
@@ -23,22 +27,15 @@ class Book(models.Model):
     
     name=models.CharField(max_length=200, null= True)
     category=models.CharField(max_length=200,null=True,choices=CATEGORY)
-    datecreated=models.DateTimeField(auto_now_add=True, null=True)
+    author=models.CharField(max_length=200,null=True)
+    image=models.ImageField(default='defaultbook.png',null=True,blank=True)
+    
 
     def __str__(self):
         return self.name
 
 
-class Review(models.Model):
-    
-    customer=models.ForeignKey(Customer,max_length=200,null=True , on_delete=models.SET_NULL)
-    books= models.ForeignKey(Book,on_delete=models.SET_NULL,null=True,max_length=200)
-    
-    Review=models.TextField(max_length=500,null=True)
-    datecreated=models.DateTimeField(auto_now_add=True, null=True)
 
-    def __str__(self):
-        return self.books.name
 
 class Order(models.Model):
     STATUS=(('Rented','Rented'),('Pending','Pending'),('Cancelled','Cancelled'))
@@ -46,6 +43,6 @@ class Order(models.Model):
     book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
     status=models.CharField(max_length=200, null=True,choices=STATUS)
     datecreated=models.DateTimeField(auto_now_add=True, null=True)
-    Review=models.ForeignKey(Review,max_length=500,null=True,on_delete=models.SET_NULL)
+    Review=models.TextField(max_length=500,null=True)
     
     

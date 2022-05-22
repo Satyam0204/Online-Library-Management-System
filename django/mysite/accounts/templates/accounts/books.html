@@ -1,35 +1,110 @@
-{% extends 'accounts/main.html' %}
- 
-{% block content %}
+{% extends 'accounts/main.html' %} {% block content %}
 
-<br>
+<br />
 
 <div class="row">
-    <div class="col-md">
-        <div class="card card-body">
-            <h5>Books</h5>
-        </div>
-        <div class="card card-body">
-            <table class="table">
-                <tr>
-                    <th>Books</th>
-                    <th>Category</th>
-                    <th></th>
-                </tr>
-
-                {% for i in books %}
-                <tr>
-                    <td>{{i.name}}</td>
-                    <td>{{i.category}}</td>
-                    <td> <a class="btn btn-primary me-2" href="{% url 'addreview' %}" role="button">Add a Review</a></td>
-                    <td> <a class="btn btn-danger me-2" href="" role="button">Delete</a></td>
-                </tr>
-                {% endfor %}
-                
-            </table>
-        </div>
+  <div class="col-md">
+    <div class="card card-body">
+      <h5>Books</h5>
     </div>
-    
+    <div class="card card-body">
+      {% if request.user.is_staff %}
+      <!-- Button trigger modal -->
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        Add Books
+      </button>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add Books</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.name.label}}
+                    {{form.name}}
+                    <br>
+                    {{form.category.label}}
+                    {{form.category}}
+                    <br>
+                    {{form.author.label}}
+                    {{form.author}}
+                    <br>
+                    {{form.image.label}}
+                    {{form.image}}
+
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                   <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      
+      <table class="table">
+        <tr>
+          <th>Books</th>
+          <th>Category</th>
+          <th></th>
+        </tr>
+
+        {% for i in books %}
+        <tr>
+          <td>{{i.name}}</td>
+          <td>{{i.category}}</td>
+          <td>
+            <a
+              class="btn btn-primary me-2"
+              href="{% url 'addreview' %}"
+              role="button"
+              >Add a Review</a
+            >
+          </td>
+          {% if request.user.is_staff %}
+            <td>
+              <a
+                class="btn btn-danger me-2"
+                href="{% url 'deletebook' i.id %}"
+                role="button"
+                >Delete</a
+              >
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

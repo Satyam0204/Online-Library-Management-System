@@ -20,4 +20,8 @@ body{
 #orders-pending{
     background-color: #7CD1C0;
 }
+.card{
+    position: absolute;
+    width:5em;
+}
 
