@@ -1,0 +1,31 @@
+
+
+<br>
+{% block content %}
+<div class="searchtext">
+    
+    {% if searched %}
+        <h1>You Searched for {{searched}}</h1>
+        <div class="card-group"  >
+
+            {% for i in books %}
+            
+            <div class="card" style="width: 30em; margin: 5px;">
+                <img style="height: 200px; " src="{{i.image.url}}" class="card-img-top" alt="...">
+                <div class="card-body" >
+                    <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
+                    <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
+                    
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+        
+    {% else %}
+        <h1>you forgot to search</h1>
+    {% endif %}
+
+</div>
+
+{% endblock %}

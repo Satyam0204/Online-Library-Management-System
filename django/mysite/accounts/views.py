@@ -22,7 +22,7 @@ def home(request):
 @allowedUsers(['admin'])
 
 def customers(request):
-    orders=Order.objects.all
+    orders=Order.objects.all()
     context={'orders':orders}
     return render(request, 'accounts/customers.html',context)
 
@@ -107,3 +107,11 @@ def deleteBook(request,pk):
         book_delete.delete()
         return redirect('books')
     return render (request,'accounts/delete.html',{'book_delete':book_delete})
+
+def searchBook(request):
+    if request.method=="POST":
+        searched = request.POST['searched']
+        books=Book.objects.filter(name__contains='searched')
+        
+        context={'searched':searched, 'books':books}
+        return render(request,"accounts/searchbook.html",context)

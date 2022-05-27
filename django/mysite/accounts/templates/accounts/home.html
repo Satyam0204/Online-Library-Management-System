@@ -1,16 +1,30 @@
 {% extends 'accounts/main.html' %}
+{% load static %}
  
 {% block content %}
+<img id="bghome" src="{% static '/images/bghome.jpg' %}" alt="">
+<div class="container">
+        <div id="intro">
+            <h3 > Welcome to world of Books</h3>
 
+            <br>
 
+            <form class="d-flex " method="POST" action="{% url 'searchbook' %}">
+                {% csrf_token %}
+                <input name="searched" class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-secondary search" type="submit">Search</button>
+              </form>
+        </div>
+        
+    </div>
     <br>
     <div class="card-group"  >
 
         {% for i in books %}
         
-        <div class="card" style="width: 30em; justify-content: center;">
-            <img style=" width:10em ;" src="{{i.image.url}}" class="card-img-top" alt="...">
-            <div class="card-body">
+        <div class="card" style="width: 30em; margin: 5px;">
+            <img style="height: 200px; " src="{{i.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body" >
                 <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
                 <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
                 
