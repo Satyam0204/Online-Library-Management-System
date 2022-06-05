@@ -31,8 +31,8 @@
         <span class="hello">Hello, {{request.user}}</span>
         <a class="nav-link hello" href="{% url 'logout' %}">Logout</a>
         {% else %}
-        <a class="btn btn-success me-2" href="{% url 'login' %}" role="button">Login</a>
-        <a class="btn btn-danger me-2" href="{% url 'register' %}" role="button">Register</a>
+        <a class="btn btn-outline-success me-2" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-outline-danger me-2" href="{% url 'register' %}" role="button">Register</a>
         {% endif %}
       </div>
     </div>

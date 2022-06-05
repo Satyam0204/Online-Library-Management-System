@@ -57,6 +57,9 @@ def registerpage(request):
             user.groups.add(group)
             messages.success(request, 'Account was created for ' + username)
             return redirect('home')
+        
+        
+        messages.error(request,"Account was not created !!!")
 
     context={'form':form}
     return render(request, 'accounts/register.html',context)
@@ -85,14 +88,17 @@ def logoutpage(request):
 
 @login_required(login_url='login')
 
-def createReview(request):
-    form=AddReview()
+def createReview(request,pk):
+    
+    book=Book.objects.get(id=pk)
+    user=request.user
+    form=AddReview(initial={'book':book, 'user':user})
     if request.method == 'POST' :
             form= AddReview(request.POST)
             if form.is_valid():
                 form.save()
                 return redirect('books')
-    context={'form' : form}
+    context={'form' : form, 'book':book, 'user':user }
     return render (request,'accounts/review_form.html',context)
 
 def userProfile(request):
@@ -111,7 +117,7 @@ def deleteBook(request,pk):
 def searchBook(request):
     if request.method=="POST":
         searched = request.POST['searched']
-        books=Book.objects.filter(name__contains='searched')
+        books=Book.objects.filter(name__icontains=searched)
         
         context={'searched':searched, 'books':books}
         return render(request,"accounts/searchbook.html",context)

@@ -1,5 +1,5 @@
 <b>Review</b>
-<form action="" method="POST">
+<form action="{% url 'addreview' book.id  %}" method="POST">
     {% csrf_token %}
     {{form}}
 

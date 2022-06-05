@@ -14,7 +14,7 @@ class CreateUserForm(UserCreationForm):
 class AddReview(ModelForm):
     class Meta:
         model=Order
-        fields=['customer','book', 'Review']
+        fields=['user','book', 'Review']
 
 
 class AddBook(ModelForm):
