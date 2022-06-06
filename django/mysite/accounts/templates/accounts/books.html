@@ -139,6 +139,16 @@
           {% if request.user.is_staff %}
             <td>
               <a
+                class="btn btn-primary me-2"
+                href="{% url 'reviewpage' i.id %}"
+                role="button"
+                >View Reviews</a
+              >
+            </td>
+            {% endif %}
+          {% if request.user.is_staff %}
+            <td>
+              <a
                 class="btn btn-danger me-2"
                 href="{% url 'deletebook' i.id %}"
                 role="button"

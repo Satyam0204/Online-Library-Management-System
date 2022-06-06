@@ -11,17 +11,13 @@
         <tr>
           <th>Customer</th>
           <th>Book</th>
-          <th>Date Issued</th>
-          <th>Status</th>
-          
+          <th>Review</th>
         </tr>
-        {% for i in orders %}
+        {% for i in reviews %}
         <tr>
           <td>{{i.user}}</td>
           <td>{{i.book.name}}</td>
-          <td>{{i.datecreated}}</td>
-          <td>{{i.status}}</td>
-         
+          <td>{{i.Review}}</td>
         </tr>
 
         {% endfor %}

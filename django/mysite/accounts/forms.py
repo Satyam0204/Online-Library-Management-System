@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 
-from accounts.models import Book, Category, Order
+from accounts.models import Book, Category, Order, Review
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -14,7 +14,7 @@ class CreateUserForm(UserCreationForm):
 
 class AddReview(ModelForm):
     class Meta:
-        model=Order
+        model=Review
         fields=['user','book', 'Review']
 
 

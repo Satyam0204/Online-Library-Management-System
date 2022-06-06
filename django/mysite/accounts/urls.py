@@ -15,4 +15,5 @@ urlpatterns = [
     path('userpage/',views.userProfile,name='userpage'),
     path('deletebook/<str:pk>/',views.deleteBook,name='deletebook'),
     path('booksearch/',views.bookSearch,name='booksearch'),
+    path('reviewpage/<str:pk>/',views.reviewPage,name='reviewpage'),
 ]

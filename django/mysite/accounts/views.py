@@ -133,3 +133,9 @@ def bookSearch(request):
     books=myfilter.qs
     context={'books':books,'myfilter':myfilter}
     return render(request,'accounts/booksearch.html',context)
+
+def reviewPage(request,pk):
+    books=Book.objects.get(id=pk)
+    reviews=books.review_set.all()
+    context={'books':books,'reviews':reviews}
+    return render(request,'accounts/reviewpage.html',context)

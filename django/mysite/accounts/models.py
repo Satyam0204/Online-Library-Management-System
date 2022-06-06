@@ -37,8 +37,14 @@ class Book(models.Model):
     def __str__(self):
         return self.name
 
+class Review(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
+    Review=models.TextField(max_length=500,null=True)
+    datecreated=models.DateTimeField(auto_now_add=True, null=True)
 
-
+    def __str__(self):
+        return self.book.name
 
 class Order(models.Model):
     STATUS=(('Rented','Rented'),('Pending','Pending'),('Cancelled','Cancelled'))
@@ -47,6 +53,6 @@ class Order(models.Model):
     book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
     status=models.CharField(max_length=200, null=True,choices=STATUS)
     datecreated=models.DateTimeField(auto_now_add=True, null=True)
-    Review=models.TextField(max_length=500,null=True)
+    
     
     
