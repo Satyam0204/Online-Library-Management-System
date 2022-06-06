@@ -3,9 +3,8 @@
 <br>
 {% block content %}
 <div class="searchtext">
-    
-    {% if searched %}
-        <h3>matching results for "{{searched}}"</h3>
+
+
         <div class="card-group"  >
 
             {% for i in books %}
@@ -22,9 +21,7 @@
             {% endfor %}
         </div>
         
-    {% else %}
-        <h1>you forgot to search</h1>
-    {% endif %}
+
 
 </div>
 

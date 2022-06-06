@@ -1,9 +1,10 @@
+from concurrent.futures.process import BrokenProcessPool
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 
-from accounts.models import Book, Order
+from accounts.models import Book, Category, Order
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -21,3 +22,13 @@ class AddBook(ModelForm):
     class Meta:
         model=Book
         fields='__all__'
+
+class AddCategory(ModelForm):
+    class Meta:
+        model= Category
+        fields='__all__'
+
+class SearchBook(ModelForm):
+    class Meta:
+        model=Book
+        fields=['name','category']

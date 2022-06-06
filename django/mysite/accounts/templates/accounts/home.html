@@ -9,10 +9,11 @@
 
             <br>
 
-            <form class="d-flex " method="POST" action="{% url 'searchbook' %}">
+            <form class="d-flex " method="GET" action="{% url 'booksearch' %}">
                 {% csrf_token %}
-                <input name="searched" class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-secondary search" type="submit">Search</button>
+                {{myfilter.form}}
+                <button class="btn btn-secondary search" type="submit">Search</button><br>
+   
               </form>
         </div>
         

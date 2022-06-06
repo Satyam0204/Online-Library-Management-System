@@ -6,16 +6,20 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import AddBook, AddReview, CreateUserForm
+from .forms import AddBook, AddCategory, AddReview, CreateUserForm
 from .decorators import unauthorizedUsers, allowedUsers
 from django.contrib.auth.models import Group
+from .filters import Bookfilter
 # Create your views here.
 
 
 
 def home(request):
     books=Book.objects.all()
-    context={'books':books}
+    
+    myfilter=Bookfilter(request.GET,queryset=books)
+    books=myfilter.qs
+    context={'books':books,'myfilter':myfilter}
     return render(request, 'accounts/home.html',context)
 
 @login_required(login_url='login')
@@ -33,6 +37,7 @@ def books(request):
     books=Book.objects.all()
     
     form=AddBook()
+    categoryform=AddCategory()
    
     
     if request.method == 'POST' :
@@ -41,8 +46,13 @@ def books(request):
                 form.save()
                 return redirect('books')
     
+    if request.method == 'POST' :
+            categoryform= AddCategory(request.POST)
+            if categoryform.is_valid():
+                categoryform.save()
+                return redirect('books')
     
-    return render(request, 'accounts/books.html',{'books':books, 'form':form})
+    return render(request, 'accounts/books.html',{'books':books, 'form':form, 'categoryform': categoryform})
 
 def registerpage(request):
     form= CreateUserForm()
@@ -114,10 +124,12 @@ def deleteBook(request,pk):
         return redirect('books')
     return render (request,'accounts/delete.html',{'book_delete':book_delete})
 
-def searchBook(request):
-    if request.method=="POST":
-        searched = request.POST['searched']
-        books=Book.objects.filter(name__icontains=searched)
-        
-        context={'searched':searched, 'books':books}
-        return render(request,"accounts/searchbook.html",context)
+
+
+def bookSearch(request):
+    books=Book.objects.all()
+    
+    myfilter=Bookfilter(request.GET,queryset=books)
+    books=myfilter.qs
+    context={'books':books,'myfilter':myfilter}
+    return render(request,'accounts/booksearch.html',context)
