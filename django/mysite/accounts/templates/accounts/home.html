@@ -11,7 +11,10 @@
 
             <form class="d-flex " method="GET" action="{% url 'booksearch' %}">
                 {% csrf_token %}
-                {{myfilter.form}}
+                {{myfilter.form.name}}
+                
+                {{myfilter.form.category.label}}
+                {{myfilter.form.category}}
                 <button class="btn btn-secondary search" type="submit">Search</button><br>
    
               </form>
@@ -19,7 +22,7 @@
         
     </div>
     <br>
-    <div class="card-group"  >
+    <div class="card-group"   >
 
         {% for i in books %}
         
