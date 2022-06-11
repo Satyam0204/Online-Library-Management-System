@@ -1,7 +1,59 @@
-<b>Review</b>
-<form action="{% url 'addreview' book.id  %}" method="POST">
-    {% csrf_token %}
-    {{form}}
+{% extends 'accounts/main.html' %}
+{% load static %}
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+{% block content %}
+<style>
+    .reviewform{
+        
+        display: flex;
+        
+        top: px;
+        padding:1em;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    .form{
+        
+        padding:1em;
+        margin: 1em;
+        position: relative;
+        
+    }
+    form{
+        background-color: rgba(134, 49, 49, 0.651);
+        margin: 1em;
+        padding: 1em;
+        
+    }
+
+</style>
+<br>
+<div class="form ">
+    <div class="reviewform">
+        
+        <form action="{% url 'addreview' book.id  %}" method="POST">
+            
+        
+            <h4>Review</h4>
+            <br>
+            {% csrf_token %}
+            {{form.user.label}}
+            {{form.user}}
+            <br>
+            <br>
+            {{form.book.label}}
+            {{form.book}}
+            <br>
+            <br>
+            {{form.Review.label}}
+            <br>
+            {{form.Review}}
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

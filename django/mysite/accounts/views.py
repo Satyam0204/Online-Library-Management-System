@@ -139,7 +139,7 @@ def bookSearch(request):
     return render(request,'accounts/booksearch.html',context)
 
 @login_required(login_url='login')
-@allowedUsers(['admin'])
+
 
 def reviewPage(request,pk):
     books=Book.objects.get(id=pk)
