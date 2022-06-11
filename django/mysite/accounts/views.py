@@ -118,6 +118,9 @@ def userProfile(request):
 
 
 
+@login_required(login_url='login')
+@allowedUsers(['admin'])
+
 def deleteBook(request,pk):
     book_delete=Book.objects.get(id=pk)
     if request.method=='POST':
@@ -134,6 +137,9 @@ def bookSearch(request):
     books=myfilter.qs
     context={'books':books,'myfilter':myfilter}
     return render(request,'accounts/booksearch.html',context)
+
+@login_required(login_url='login')
+@allowedUsers(['admin'])
 
 def reviewPage(request,pk):
     books=Book.objects.get(id=pk)

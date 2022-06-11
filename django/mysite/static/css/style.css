@@ -34,7 +34,7 @@ nav div ul li a:active{
 } */
 #login {
     position: absolute;
-    background-image: url(/static/images/loginpage.jpeg);
+
     
     background-repeat: no-repeat;
     background-size: contain;
@@ -42,8 +42,10 @@ nav div ul li a:active{
     top: 176px;
     left: 20px;
 }
-#loginpage{
-   
+.login{
+
+display: flex;
+background-image: url('/static/images/loginpage.jpeg');
 }
 .input{
     border-radius: 20px;

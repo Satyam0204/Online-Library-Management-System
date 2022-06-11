@@ -1,28 +1,84 @@
-{% extends 'accounts/main.html' %} {% load static %} 
-{% block content %}
-  <div
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
+  
+  <style>
+    .logintext{
+      color: blanchedalmond;
+      font-family: 'Mulish', sans-serif;
+    }
+    body{
+      
+    display: flex;
+    background: url('/static/images/loginpage.jpg') no-repeat center center/cover;
+    backdrop-filter:blur(1.5px);
+  }
+
+#login {
+    background: #080e12b0;
+    /* border: 2px solid rgb(22, 101, 175); */
+    margin: 50px;
+    padding: 50px;
+    position: absolute;
+    top: 4em;
+    left: 28em;
+  }
+  .btn{
+    
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    background: #080e12b0;
+    border: 2px solid white;
+    width: 100%;
+  }
+  .btn:hover{
+    background-color: white;
+    color: black;
+    width: 100%;
+    
+    padding: 10px;
+    
+  }
+  .input{
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background: #36495594;
+    border: 2px solid white;
+  }
+  .url{
+    color: aquamarine;
+  }
+
+  </style>
+  <body>
+    
+    <div
     class="login" >
     
       <form id="login" method="POST" action="/login/">
-        <b>Login</b>
-        <br />
-        <br />
+        <h2 class="logintext" style="text-align: center;">LOGIN</h2>
+        <br >
         {% csrf_token %}
-        <span class="logintext">USERNAME  </span>
+        
         <input name="username" type="text" placeholder="username" class="input" />
-        <br />
-        <span class="logintext">PASSWORD </span>
+        <br >
+        <br>
+        
         <input type="password" placeholder="password" name="password" class="input"/>
-        <br />
-        <br />
-        <button type="submit" class="btn btn-dark">Login</button>
-        <br />
-        <br />
+        <br >
+        <br >
+        <button type="submit" class="btn ">Login</button>
+        <br >
+        <br >
         {% for message in messages %}
-        <p id="messages">{{message}}</p>
+        <p class="logintext" id="messages">{{message}}</p>
         {% endfor %}
-        <p>Don't have an account? <a class="url"href="{% url 'register' %}">Register</a></p>
+        <p class="logintext">Don't have an account? <a class="url"href="{% url 'register' %}">Register</a></p>
       </form>
     
   </div>
-{% endblock %}
+  
+
+</body>

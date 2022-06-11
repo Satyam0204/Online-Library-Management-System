@@ -1,20 +1,91 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
 
-<b>Register</b>
+<style>
+    .logintext{
+      color: blanchedalmond;
+      font-family: 'Mulish', sans-serif;
+    }
+    body{
+      
+    display: flex;
+    background: url('/static/images/loginpage.jpg') no-repeat center center/cover;
+    backdrop-filter:blur(1.5px);
+  }
 
+#login {
+    background: #080e12b0;
+    /* border: 2px solid rgb(22, 101, 175); */
+    margin: 50px;
+    padding: 40px;
+    position: absolute;
+    top: -2em;
+    left: 27em;
+  }
+  .btn{
+    
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    background: #080e12b0;
+    border: 2px solid white;
+    width: 100%;
+  }
+  .btn:hover{
+    background-color: white;
+    color: black;
+    width: 100%;
+    
+    padding: 10px;
+    
+  }
+  input{
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background: #36495594;
+    border: 2px solid white;
+  }
+  .url{
+    color: aquamarine;
+  }
 
-<form action="" method="POST">
+  </style>
+    
+    
+<body>
+    <div
+    class="login" >
+    <form id="login" class="logintext"action="" method="POST">
+    <p class="logintext">
+        <h2 class="logintext" style="text-align: center;">REGISTER</h2>
+    <br>
     {% csrf_token %}
-
     {{form.username.label}}
     {{form.username}}
+    <br>
+    <br>
     {{form.email.label}}
     {{form.email}}
+    <br>
+    <br>
     {{form.password1.label}}
     {{form.password1}}
+    <br>
+    <br>
     {{form.password2.label}}
     {{form.password2}}
+    <br>
+    <br>
+    <br>
     
-    <input type="submit" name="Create User" id="">
+    <button type="submit"name="Create User" class="btn ">Register</button>
+    <br>
     {{forms.errors}}
-    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    
+    <p class="logintext">Already have an account? <a class="url" href="{% url 'login' %}">Login</a></p>
+</p>
 </form>
+</div>
+</body>
