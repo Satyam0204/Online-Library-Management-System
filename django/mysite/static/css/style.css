@@ -70,3 +70,36 @@ background-image: url('/static/images/loginpage.jpeg');
 #id_category option{
     background-color: black;
 }
+#issue{
+    color: rgb(14, 138, 70);
+
+    border: 1px solid rgb(14, 138, 70);
+}
+#issue:hover{
+    background-color: rgb(41, 223, 123);
+    color: white;
+    cursor: pointer;
+}
+#details{
+    color: rgb(49, 43, 43);
+    background-color: white;
+    border: 1px solid black;
+  
+}
+
+#details:hover{
+    background-color: rgb(49, 43, 43);
+    color: white;
+    cursor: pointer;
+}
+#wishlist{
+    border:1px solid black;
+    cursor: pointer;
+}
+#wishlist:hover{
+    color: white;
+    background-color: black;
+}
+.issueform{
+    display:none
+}

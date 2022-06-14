@@ -1,0 +1,69 @@
+{% extends 'accounts/home.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .bookcontainer{
+        display: flex;
+        margin: 1em;
+        padding: 1em;
+    }
+    .issueform{
+        display:none
+    }
+    .btncontainer{
+        display: flex;
+        padding: 1em;
+    }
+    form{
+        margin: 5px;
+    }
+</style>
+<br><br>
+<br>
+<div class="bookcontainer">
+    <div class="imgcontainer">
+        <img style="height: 300px; margin:10px; width: 220px; " src="{{book.image.url}}" alt="">
+    </div>
+    <div class="book">
+        <h2>{{book.name}}</h2>
+        <p>{{book.author}}</p>
+        <br><br><br><br>
+        <div class="btncontainer">
+
+            <form action="" method="POST">
+                <div class="issueform">
+                    
+                    {% csrf_token %}
+                    {{issue}}
+                </div>
+                <br><br>
+                <button type="submit" class="btn" id="issue">Add to Issue</button>    
+            </form>
+
+            <form action="" method="POST">
+                <div style="display: none;" >
+                    
+                    {% csrf_token %}
+                    {{wishlist}}
+                </div>  
+                <br><br>
+                <button type="submit" class="btn" id="wishlist">Add to Wishlist</button>        
+            </form>
+        </div>
+            
+    </div>
+</div>
+<div >
+
+    <div class="desc">
+        
+        <p>About the book</p>
+        <p>{{book.description}}</p>
+    </div>
+    <div class="review"> 
+        <a class="btn btn-primary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
+            
+    </div>
+</div>
+
+{% endblock %}

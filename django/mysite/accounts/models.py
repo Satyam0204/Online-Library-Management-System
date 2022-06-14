@@ -31,6 +31,7 @@ class Book(models.Model):
     name=models.CharField(max_length=200, null= True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,max_length=200,null=True)
     author=models.CharField(max_length=200,null=True)
+    description=models.TextField(max_length=500,null=True)
     image=models.ImageField(default='defaultbook.png',null=True,blank=True)
     
 
@@ -47,12 +48,13 @@ class Review(models.Model):
         return self.book.name
 
 class Order(models.Model):
-    STATUS=(('Rented','Rented'),('Pending','Pending'),('Cancelled','Cancelled'))
+    STATUS=(('Rented','Rented'),('Pending','Pending'),('Returned','Returned'))
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    customer=models.ForeignKey(Customer,on_delete=models.SET_NULL, max_length=200,null=True)
+    
     book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
     status=models.CharField(max_length=200, null=True,choices=STATUS)
     datecreated=models.DateTimeField(auto_now_add=True, null=True)
-    
+    def __str__(self):
+        return self.book.name  
     
     

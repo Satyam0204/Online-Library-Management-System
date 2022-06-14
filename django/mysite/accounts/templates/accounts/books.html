@@ -53,6 +53,9 @@
                     {{form.author.label}}
                     {{form.author}}
                     <br>
+                    {{form.description.label}}
+                    {{form.description}}
+                    <br>
                     {{form.image.label}}
                     {{form.image}}
 
@@ -137,14 +140,7 @@
             >
           </td>
 
-            <td>
-              <a
-                class="btn btn-primary me-2"
-                href="{% url 'reviewpage' i.id %}"
-                role="button"
-                >View Reviews</a
-              >
-            </td>
+
             
           {% if request.user.is_staff %}
             <td>

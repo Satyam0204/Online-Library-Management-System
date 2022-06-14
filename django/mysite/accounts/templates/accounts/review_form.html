@@ -3,11 +3,14 @@
 
 {% block content %}
 <style>
+    body{
+        background: url('/static/images/reviewbackground.jpg') no-repeat center center/cover;
+    }
     .reviewform{
         
         display: flex;
         
-        top: px;
+        top: 5px;
         padding:1em;
         justify-content: center;
         align-items: center;
@@ -15,7 +18,6 @@
     }
     .form{
         
-        padding:1em;
         margin: 1em;
         position: relative;
         
@@ -26,6 +28,13 @@
         padding: 1em;
         
     }
+    select{
+        width: 100%;
+        background-color: rgba(233, 206, 221, 0.603);
+    }
+    textarea{
+        background-color: rgba(233, 206, 221, 0.603);
+    }
 
 </style>
 <br>
@@ -35,7 +44,7 @@
         <form action="{% url 'addreview' book.id  %}" method="POST">
             
         
-            <h4>Review</h4>
+            <h4 style="text-align:center">REVIEW</h4>
             <br>
             {% csrf_token %}
             {{form.user.label}}
@@ -49,7 +58,6 @@
             {{form.Review.label}}
             <br>
             {{form.Review}}
-            <br>
             <br>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

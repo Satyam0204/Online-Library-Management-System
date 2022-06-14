@@ -16,4 +16,8 @@ urlpatterns = [
     path('deletebook/<str:pk>/',views.deleteBook,name='deletebook'),
     path('booksearch/',views.bookSearch,name='booksearch'),
     path('reviewpage/<str:pk>/',views.reviewPage,name='reviewpage'),
+    path('bookdetail/<str:pk>/',views.bookDetail,name='bookdetail'),
+    path('updateorder/<str:pk>/',views.updateOrder,name='updateorder'),
+    path('mybooks/',views.myBooks,name='mybooks'),
+    path('mywishlist/',views.myWishlist,name='mywishlist'),
 ]

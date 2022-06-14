@@ -2,6 +2,7 @@
 {% load static %}
  
 {% block content %}
+
 <img id="bghome" src="{% static '/images/bghome.jpg' %}" alt="">
 <div class="container">
         <div id="intro">
@@ -27,12 +28,15 @@
         {% for i in books %}
         
         <div class="card" style="width: 30em; margin: 5px;">
-            <img style="height: 200px; " src="{{i.image.url}}" class="card-img-top" alt="...">
+            <img style="height: 200px ; " src="{{i.image.url}}" class="card-img-top" alt="...">
             <div class="card-body" >
                 <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
                 <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
                 
             </div>
+            <a href="{% url 'bookdetail' i.id %}" role="button" class="btn" id="details">View Details</a>
+
+            
         </div>
         
         {% endfor %}
