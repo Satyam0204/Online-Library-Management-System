@@ -132,12 +132,8 @@
           <td>{{i.name}}</td>
           <td>{{i.category}}</td>
           <td>
-            <a
-              class="btn btn-primary me-2"
-              href="{% url 'addreview' i.id  %}"
-              role="button"
-              >Add a Review</a
-            >
+            <a class="btn btn-primary me-2"href="{% url 'reviewpage' i.id %}"role="button">View Reviews</a>
+            
           </td>
 
 

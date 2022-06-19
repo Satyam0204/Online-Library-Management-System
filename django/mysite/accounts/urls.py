@@ -20,4 +20,5 @@ urlpatterns = [
     path('updateorder/<str:pk>/',views.updateOrder,name='updateorder'),
     path('mybooks/',views.myBooks,name='mybooks'),
     path('mywishlist/',views.myWishlist,name='mywishlist'),
+    path('delwish/<str:pk>/',views.delWish,name='delwish'),
 ]

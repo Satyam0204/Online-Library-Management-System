@@ -2,6 +2,22 @@
 {% load static %}
  
 {% block content %}
+<style>
+    .booklink{
+        text-decoration: solid;
+        
+        color: black;
+    }
+    .booklink:hover{
+        color: #2774f0;
+        text-shadow: black;
+    }
+    .card:hover{
+        box-shadow:2px 2px 2px 1px grey;
+        
+    }
+
+</style>
 
 <img id="bghome" src="{% static '/images/bghome.jpg' %}" alt="">
 <div class="container">
@@ -23,18 +39,18 @@
         
     </div>
     <br>
-    <div class="card-group"   >
+    <div class="card-group" style="display: flex; flex-wrap: wrap; flex-direction: row;"  >
 
         {% for i in books %}
         
-        <div class="card" style="width: 30em; margin: 5px;">
+        <div class="card" style=" margin: 5px;">
             <img style="height: 200px ; " src="{{i.image.url}}" class="card-img-top" alt="...">
             <div class="card-body" >
-                <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
-                <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
+                <a href="{% url 'bookdetail' i.id %}"  class="booklink">{{i.name}}</a>
+                <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
+                <p style="width: 10rem; font-weight: 279;"class="card-title">{{i.author}}</p>
                 
             </div>
-            <a href="{% url 'bookdetail' i.id %}" role="button" class="btn" id="details">View Details</a>
 
             
         </div>

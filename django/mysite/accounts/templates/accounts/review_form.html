@@ -44,17 +44,19 @@
         <form action="{% url 'addreview' book.id  %}" method="POST">
             
         
-            <h4 style="text-align:center">REVIEW</h4>
+            <h4 style="text-align:center">Review for {{book.name}} </h4>
             <br>
             {% csrf_token %}
-            {{form.user.label}}
-            {{form.user}}
-            <br>
-            <br>
-            {{form.book.label}}
-            {{form.book}}
-            <br>
-            <br>
+            <div style="display: none;">
+                {{form.user.label}}
+                {{form.user}}
+                <br>
+                <br>
+                {{form.book.label}}
+                {{form.book}}
+                <br>
+                <br>
+            </div>
             {{form.Review.label}}
             <br>
             {{form.Review}}

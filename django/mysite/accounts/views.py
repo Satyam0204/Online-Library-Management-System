@@ -10,6 +10,7 @@ from .forms import AddBook, AddCategory, AddReview, CreateUserForm,Issue
 from .decorators import unauthorizedUsers, allowedUsers
 from django.contrib.auth.models import Group
 from .filters import Bookfilter
+from django.urls import reverse
 # Create your views here.
 
 
@@ -31,6 +32,7 @@ def customers(request):
     return render(request, 'accounts/customers.html',context)
 
 @login_required(login_url='login')
+@allowedUsers(['admin'])
 
 def books(request):
 
@@ -157,15 +159,17 @@ def bookDetail(request,pk):
     if request.method == 'POST' :
         issue= Issue(request.POST)
         if issue.is_valid():
-                
             issue.save()
+            return redirect(reverse('bookdetail',args=pk))
+            
     status2=('Pending','Pending')
     wishlist=Issue(initial={'book':book, 'user':user,'status':status2})
     if request.method == 'POST' :
         wishlist= Issue(request.POST)
         if wishlist.is_valid():
-                
             wishlist.save()
+            return redirect(reverse('bookdetail',args=pk))  
+                
             
     context={'book':book,'issue':issue,'wishlist':wishlist}
     return render(request,'accounts/bookdetail.html',context)
@@ -182,6 +186,7 @@ def myBooks(request):
 def myWishlist(request):
     user=request.user
     orders=user.order_set.filter(status='Pending')
+    
     context={'orders':orders}
     return render(request,'accounts/mywishlist.html',context)
 
@@ -197,3 +202,9 @@ def updateOrder(request,pk):
             return redirect('customers')
     context={'update':update,'orders':orders}
     return render(request,'accounts/updateorder.html',context)
+
+def delWish(request,pk):
+    order_delete=Order.objects.get(id=pk)
+    order_delete.delete()
+    return redirect('mywishlist')
+    

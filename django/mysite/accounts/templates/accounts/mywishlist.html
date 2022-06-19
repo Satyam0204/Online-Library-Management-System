@@ -21,11 +21,15 @@
                
                 <td>{{i.book.name}}</td>
                 <td>{{i.book.category}}</td>
-
-                
-                <td><button type="submit" class="btn" id="issue">Add to Issue</button> </td>
-                
-               
+                <td>   <form action="" method="POST">
+                  <div class="issueform" >
+                      
+                      {% csrf_token %}
+                      {{issue}}
+                  </div>
+                  <button type="submit" class="btn" id="issue">Issue</button>    
+              </form> </td>
+                <td>  <a href="{% url 'delwish' i.id %}"><img src="/static/images/delete-icon.png" alt=""></a></td>
               </tr>
       
               {% endfor %}

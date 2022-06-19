@@ -76,7 +76,7 @@ background-image: url('/static/images/loginpage.jpeg');
     border: 1px solid rgb(14, 138, 70);
 }
 #issue:hover{
-    background-color: rgb(41, 223, 123);
+    background-color: rgb(14, 138, 70);
     color: white;
     cursor: pointer;
 }
