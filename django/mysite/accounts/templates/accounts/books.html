@@ -125,6 +125,8 @@
           <th>Books</th>
           <th>Category</th>
           <th></th>
+          <th></th>
+          <th></th>
         </tr>
 
         {% for i in books %}
@@ -135,6 +137,7 @@
             <a class="btn btn-primary me-2"href="{% url 'reviewpage' i.id %}"role="button">View Reviews</a>
             
           </td>
+          <td><a href="{% url 'updatebook' i.id %}" role="button" class="btn btn-primary me-2">Edit Book</a></td>
 
 
             

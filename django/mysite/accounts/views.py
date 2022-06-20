@@ -203,6 +203,21 @@ def updateOrder(request,pk):
     context={'update':update,'orders':orders}
     return render(request,'accounts/updateorder.html',context)
 
+@login_required(login_url='login')
+@allowedUsers(['admin'])
+
+def updateBook(request,pk):
+    book=Book.objects.get(id=pk)
+    update=AddBook(instance=book)
+    if request.method=="POST":
+        update=AddBook(request.POST,instance=book)
+        if update.is_valid():
+            update.save()
+            return redirect('books')
+    context={'update':update}
+    return render(request,'accounts/updatebook.html',context)
+
+@login_required(login_url='login')
 def delWish(request,pk):
     order_delete=Order.objects.get(id=pk)
     order_delete.delete()
