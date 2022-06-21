@@ -223,16 +223,35 @@ def delWish(request,pk):
     order_delete.delete()
     return redirect('mywishlist')
 
+@login_required(login_url='login')
+@allowedUsers(['admin'])
 def moderator(request):
-    users=User.objects.all()
-    context={'users':users}
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
+    group_customer=Group.objects.get(name='customer')
+    customer_users=User.objects.filter(groups=group_customer)
+    context={'admin_users':admin_users,'customer_users':customer_users}
     return render(request,'accounts/moderator.html',context)
 
+
+@login_required(login_url='login')
+@allowedUsers(['admin'])
 def addAdmin(request,pk):
     user=User.objects.get(id=pk)
     group_admin=Group.objects.get(name='admin')   
     group_customer=Group.objects.get(name='customer')   
     user.groups.remove(group_customer)
     user.groups.add(group_admin)
+    return redirect('moderator')
+
+
+@login_required(login_url='login')
+@allowedUsers(['admin'])
+def removeAdmin(request,pk):
+    user=User.objects.get(id=pk)
+    group_admin=Group.objects.get(name='admin')   
+    group_customer=Group.objects.get(name='customer')   
+    user.groups.add(group_customer)
+    user.groups.remove(group_admin)
     
-    return redirect('customers')
+    return redirect('moderator')
