@@ -27,7 +27,7 @@ def home(request):
 @allowedUsers(['admin'])
 
 def customers(request):
-    orders=Order.objects.all()
+    orders=Order.objects.all().order_by('user','dateordered')
     context={'orders':orders}
     return render(request, 'accounts/customers.html',context)
 
@@ -222,4 +222,17 @@ def delWish(request,pk):
     order_delete=Order.objects.get(id=pk)
     order_delete.delete()
     return redirect('mywishlist')
+
+def moderator(request):
+    users=User.objects.all()
+    context={'users':users}
+    return render(request,'accounts/moderator.html',context)
+
+def addAdmin(request,pk):
+    user=User.objects.get(id=pk)
+    group_admin=Group.objects.get(name='admin')   
+    group_customer=Group.objects.get(name='customer')   
+    user.groups.remove(group_customer)
+    user.groups.add(group_admin)
     
+    return redirect('customers')

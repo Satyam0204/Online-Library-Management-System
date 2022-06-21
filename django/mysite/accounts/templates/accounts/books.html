@@ -8,7 +8,7 @@
       <h5>Books</h5>
     </div>
     <div class="card card-body">
-      {% if request.user.is_staff %}
+     
       <!-- Button trigger modal -->
       <button
         type="button"
@@ -76,11 +76,8 @@
         </div>
       </div>
 
-      
-      
-      {% endif %}
+    
 
-      {% if request.user.is_staff %}
           <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
  Add Category
@@ -118,7 +115,7 @@
   </div>
 </div>
 
-      {% endif %}
+      
       
       <table class="table">
         <tr>
@@ -141,7 +138,7 @@
 
 
             
-          {% if request.user.is_staff %}
+
             <td>
               <a
                 class="btn btn-danger me-2"
@@ -150,7 +147,6 @@
                 >Delete</a
               >
             </td>
-            {% endif %}
         </tr>
         {% endfor %}
       </table>

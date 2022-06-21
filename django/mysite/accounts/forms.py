@@ -37,3 +37,4 @@ class Issue(ModelForm):
     class Meta:
         model=Order
         fields=['user','book','status']
+

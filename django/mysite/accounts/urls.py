@@ -22,4 +22,7 @@ urlpatterns = [
     path('mybooks/',views.myBooks,name='mybooks'),
     path('mywishlist/',views.myWishlist,name='mywishlist'),
     path('delwish/<str:pk>/',views.delWish,name='delwish'),
+    path('addadmin/<str:pk>/',views.addAdmin,name='addadmin'),
+    path('moderator/',views.moderator,name='moderator'),
+
 ]

@@ -1,0 +1,28 @@
+{% extends 'accounts/main.html' %} {% block content %}
+
+<br />
+
+<br />
+
+<div class="row">
+    <div class="col-md">
+      <div class="card card-body">
+        <table class="table table-sm">
+          <tr>
+            <th>Users</th>
+
+            
+          </tr>
+          {% for i in users %}
+          <tr>
+            <td>{{i.username}}</td>
+            <td>            <a href="{% url 'addadmin' i.id %}" class="btn btn-primary" >Add to Admin</a></td>
+          </tr>
+  
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  {% endblock %}

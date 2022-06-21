@@ -31,7 +31,7 @@ class Book(models.Model):
     name=models.CharField(max_length=200, null= True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,max_length=200,null=True)
     author=models.CharField(max_length=200,null=True)
-    description=models.TextField(max_length=500,null=True)
+    description=models.TextField(max_length=500,null=True,blank=True)
     image=models.ImageField(default='defaultbook.png',null=True,blank=True)
     
 
@@ -53,7 +53,7 @@ class Order(models.Model):
     
     book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
     status=models.CharField(max_length=200, null=True,choices=STATUS)
-    datecreated=models.DateTimeField(auto_now_add=True, null=True)
+    dateordered=models.DateTimeField(auto_now_add=True, null=True)
     def __str__(self):
         return self.book.name  
     
