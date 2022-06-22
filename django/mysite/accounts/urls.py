@@ -20,11 +20,13 @@ urlpatterns = [
     path('updateorder/<str:pk>/',views.updateOrder,name='updateorder'),
     path('updatbook/<str:pk>/',views.updateBook,name='updatebook'),
     path('mybooks/',views.myBooks,name='mybooks'),
-    path('mywishlist/',views.myWishlist,name='mywishlist'),
+    path('myissuerequest/',views.myissuereqeuest,name='myissuerequest'),
     path('delwish/<str:pk>/',views.delWish,name='delwish'),
     path('moderator/',views.moderator,name='moderator'),
     path('addadmin/<str:pk>/',views.addAdmin,name='addadmin'),
     path('removeadmin/<str:pk>/',views.removeAdmin,name='removeadmin'),
     path('issuebook/<str:pk>/',views.issuebook,name='issuebook'),
+    path('upvote/<str:pk>/',views.upvote,name='upvote'),
+    path('downvote/<str:pk>/',views.downvote,name='downvote'),
 
 ]

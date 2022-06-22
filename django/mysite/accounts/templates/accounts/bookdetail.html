@@ -17,7 +17,25 @@
     form{
         margin: 5px;
     }
-</style>
+    .votecontainer{
+        display: flex;
+        flex-direction: column;
+        
+        margin: 0;
+        padding: 0;
+    }
+    .votes{
+        position: relative;
+        justify-items: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        height:50px;
+        width: 50px;
+        align-items: center;
+        justify-content: center;
+    }
+    </style>
 <br><br>
 <br>
 <div class="bookcontainer">
@@ -28,7 +46,20 @@
         <br>
         <h2>{{book.name}}</h2>
         <p>{{book.author}}</p>
-        <br><br><br>
+        <div class="votecontainer">
+            {% if request.user in uv %}
+            <img src="/static/images/Up_green_arrow.png" alt="" class="votes">
+            {%else%}
+            <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+            {%endif%}
+            <p class="votes">{{votes}}</p>
+            {% if request.user in dv %}
+            <img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes">
+            {%else%}
+            <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+            {%endif%}
+        </div>
+        <br>
         <div class="btncontainer">
             {% if pending %}
                 <h5>Issual Request sent</h5>
@@ -37,6 +68,7 @@
             {% else %}
                 <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
             {% endif %}
+
         </div>
             
     </div>

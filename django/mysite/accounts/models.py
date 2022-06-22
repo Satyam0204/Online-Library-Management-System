@@ -36,6 +36,8 @@ class Book(models.Model):
     dimennsions=models.CharField(max_length=100,null=True,blank=True)
     description=models.TextField(max_length=500,null=True,blank=True)
     image=models.ImageField(default='defaultbook.png',null=True,blank=True)
+    upvote=models.ManyToManyField(User,blank=True,related_name='upvote')
+    downvote=models.ManyToManyField(User,blank=True,related_name='downvote')
     
 
     def __str__(self):

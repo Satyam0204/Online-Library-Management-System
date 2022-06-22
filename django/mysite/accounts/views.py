@@ -154,9 +154,15 @@ def reviewPage(request,pk):
 def bookDetail(request,pk):
     book=Book.objects.get(id=pk)
     user=request.user
+    uv=book.upvote.all()
+    dv=book.downvote.all()
+    
+    upvotes=book.upvote.count()
+    downvotes=book.downvote.count()
+    votes=upvotes-downvotes
     pending=user.order_set.filter(book=book,status='Pending')
     issued=user.order_set.filter(book=book,status='Rented')
-    context={'book':book,'pending':pending,'issued':issued}
+    context={'book':book,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv}
     return render(request,'accounts/bookdetail.html',context)
 
 
@@ -168,12 +174,12 @@ def myBooks(request):
     return render(request,'accounts/mybooks.html',context)
 
 @login_required(login_url='login')
-def myWishlist(request):
+def myissuereqeuest(request):
     user=request.user
     orders=user.order_set.filter(status='Pending')
     
     context={'orders':orders}
-    return render(request,'accounts/mywishlist.html',context)
+    return render(request,'accounts/myissuerequest.html',context)
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
@@ -206,7 +212,7 @@ def updateBook(request,pk):
 def delWish(request,pk):
     order_delete=Order.objects.get(id=pk)
     order_delete.delete()
-    return redirect('mywishlist')
+    return redirect('myissuerequest')
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
@@ -250,4 +256,21 @@ def issuebook(request,pk):
     status='Pending'
 
     Order.objects.create(book=book,user=user,status=status)
+    return redirect(reverse('bookdetail',args=pk))
+
+
+def upvote(request,pk):
+    user=request.user
+    book=Book.objects.get(id=pk)
+    book.upvote.add(user)
+    book.downvote.remove(user)
+
+    return redirect(reverse('bookdetail',args=pk))
+
+def downvote(request,pk):
+    user=request.user
+    book=Book.objects.get(id=pk)
+    book.downvote.add(user)
+    book.upvote.remove(user)
+
     return redirect(reverse('bookdetail',args=pk))
