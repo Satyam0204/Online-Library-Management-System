@@ -30,26 +30,13 @@
         <p>{{book.author}}</p>
         <br><br><br>
         <div class="btncontainer">
-
-            <form action="" method="POST">
-                <div class="issueform">
-                    
-                    {% csrf_token %}
-                    {{issue}}
-                </div>
-                <br><br>
-                <button type="submit" class="btn" id="issue">Issue</button>    
-            </form>
-
-            <form action="" method="POST">
-                <div style="display: none;" >
-                    
-                    {% csrf_token %}
-                    {{wishlist}}
-                </div>  
-                <br><br>
-                <button type="submit" class="btn" id="wishlist">Add to Wishlist</button>        
-            </form>
+            {% if pending %}
+                <h5>Issual Request sent</h5>
+            {% elif issued %}
+                <h5>Issued</h5>
+            {% else %}
+                <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
+            {% endif %}
         </div>
             
     </div>

@@ -25,5 +25,6 @@ urlpatterns = [
     path('moderator/',views.moderator,name='moderator'),
     path('addadmin/<str:pk>/',views.addAdmin,name='addadmin'),
     path('removeadmin/<str:pk>/',views.removeAdmin,name='removeadmin'),
+    path('issuebook/<str:pk>/',views.issuebook,name='issuebook'),
 
 ]

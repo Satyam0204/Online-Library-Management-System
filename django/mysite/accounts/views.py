@@ -154,24 +154,9 @@ def reviewPage(request,pk):
 def bookDetail(request,pk):
     book=Book.objects.get(id=pk)
     user=request.user
-    status=('Rented','Rented')
-    issue=Issue(initial={'book':book, 'user':user,'status':status})
-    if request.method == 'POST' :
-        issue= Issue(request.POST)
-        if issue.is_valid():
-            issue.save()
-            return redirect(reverse('bookdetail',args=pk))
-            
-    status2=('Pending','Pending')
-    wishlist=Issue(initial={'book':book, 'user':user,'status':status2})
-    if request.method == 'POST' :
-        wishlist= Issue(request.POST)
-        if wishlist.is_valid():
-            wishlist.save()
-            return redirect(reverse('bookdetail',args=pk))  
-                
-            
-    context={'book':book,'issue':issue,'wishlist':wishlist}
+    pending=user.order_set.filter(book=book,status='Pending')
+    issued=user.order_set.filter(book=book,status='Rented')
+    context={'book':book,'pending':pending,'issued':issued}
     return render(request,'accounts/bookdetail.html',context)
 
 
@@ -255,3 +240,14 @@ def removeAdmin(request,pk):
     user.groups.remove(group_admin)
     
     return redirect('moderator')
+
+
+@login_required(login_url='login')
+def issuebook(request,pk):
+
+    book=Book.objects.get(id=pk)
+    user=request.user
+    status='Pending'
+
+    Order.objects.create(book=book,user=user,status=status)
+    return redirect(reverse('bookdetail',args=pk))

@@ -1,7 +1,7 @@
 import email
 from email.mime import image
 from email.policy import default
-from operator import truth
+from operator import truediv, truth
 from telnetlib import STATUS
 from tkinter import CASCADE
 from django.contrib.auth.models import User
@@ -31,6 +31,9 @@ class Book(models.Model):
     name=models.CharField(max_length=200, null= True)
     category=models.ForeignKey(Category,on_delete=models.CASCADE,max_length=200,null=True)
     author=models.CharField(max_length=200,null=True)
+    quantity=models.IntegerField(null=True,blank=True)
+    language=models.CharField(max_length=100,null=True,blank=True)
+    dimennsions=models.CharField(max_length=100,null=True,blank=True)
     description=models.TextField(max_length=500,null=True,blank=True)
     image=models.ImageField(default='defaultbook.png',null=True,blank=True)
     
