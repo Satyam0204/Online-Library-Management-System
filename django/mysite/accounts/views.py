@@ -274,3 +274,9 @@ def downvote(request,pk):
     book.upvote.remove(user)
 
     return redirect(reverse('bookdetail',args=pk))
+
+def saveOrder(request,pk):
+    order=Order.objects.get(id=pk)
+    order.status=request.POST.get('status')
+    order.save()
+    return redirect('home')

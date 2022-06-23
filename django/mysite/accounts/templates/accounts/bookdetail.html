@@ -22,6 +22,7 @@
         flex-direction: column;
         
         margin: 0;
+        margin-left: 10px;
         padding: 0;
     }
     .votes{
@@ -32,7 +33,8 @@
         padding: 0;
         height:50px;
         width: 50px;
-        align-items: center;
+        text-align: center;
+        font-size: xx-large;
         justify-content: center;
     }
     </style>
@@ -40,7 +42,7 @@
 <br>
 <div class="bookcontainer">
     <div class="imgcontainer">
-        <img style="height: 300px; margin:10px; width: 220px; " src="{{book.image.url}}" alt="">
+        <img style="height: 305px; margin:10px; width: 220px; " src="{{book.image.url}}" alt="">
     </div>
     <div class="book">
         <br>
@@ -59,7 +61,6 @@
             <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
             {%endif%}
         </div>
-        <br>
         <div class="btncontainer">
             {% if pending %}
                 <h5>Issual Request sent</h5>

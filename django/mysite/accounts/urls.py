@@ -28,5 +28,7 @@ urlpatterns = [
     path('issuebook/<str:pk>/',views.issuebook,name='issuebook'),
     path('upvote/<str:pk>/',views.upvote,name='upvote'),
     path('downvote/<str:pk>/',views.downvote,name='downvote'),
+    path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
+
 
 ]

@@ -28,10 +28,10 @@ class AddCategory(ModelForm):
         model= Category
         fields='__all__'
 
-class SearchBook(ModelForm):
+class SearchOrder(ModelForm):
     class Meta:
-        model=Book
-        fields=['name','category']
+        model=Order
+        fields='__all__'
 
 class Issue(ModelForm):
     class Meta:

@@ -18,13 +18,22 @@
         </tr>
         {% for i in orders %}
         <tr>
-          <td>{{i.user}}</td>
-          <td>{{i.book.name}}</td>
-          <td>{{i.dateordered}}</td>
-          <td>{{i.status}}</td>
-          <td>
-            <a href="{% url 'updateorder' i.id %}" class="btn btn-primary" >Update</a>
-          </td>
+          <form action="{% url 'saveorder' i.id  %}" method="POST">
+            {% csrf_token %}
+            <td>{{i.user}}</td>
+            <td>{{i.book.name}}</td>
+            <td>{{i.dateordered}}</td>
+
+            <td><select name="status" class="form-select" aria-label="Default select example">
+              <option selected>{{i.status}}</option>
+              <option value="Rented">Rented</option>
+              <option value="Pending">Pending</option>
+              <option value="Returned">Returned</option>
+            </select></td>
+            <td>
+              <input type="submit" value="Update" class="btn btn-primary sm">
+            </td>
+          </form>
         </tr>
 
         {% endfor %}
