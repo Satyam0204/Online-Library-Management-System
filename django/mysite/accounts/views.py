@@ -183,16 +183,11 @@ def myissuereqeuest(request):
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
-def updateOrder(request,pk):
-    orders=Order.objects.get(id=pk)
-    update=Issue(instance=orders)
-    if request.method=="POST":
-        update= Issue(request.POST,instance=orders)
-        if update.is_valid():
-            update.save()
-            return redirect('customers')
-    context={'update':update,'orders':orders}
-    return render(request,'accounts/updateorder.html',context)
+def saveOrder(request,pk):
+    order=Order.objects.get(id=pk)
+    order.status=request.POST.get('status')
+    order.save()
+    return redirect('home')
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
@@ -275,8 +270,3 @@ def downvote(request,pk):
 
     return redirect(reverse('bookdetail',args=pk))
 
-def saveOrder(request,pk):
-    order=Order.objects.get(id=pk)
-    order.status=request.POST.get('status')
-    order.save()
-    return redirect('home')

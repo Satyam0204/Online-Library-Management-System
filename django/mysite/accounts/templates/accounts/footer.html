@@ -1,0 +1,94 @@
+<style>
+            @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300);
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 300px;
+}
+
+footer {
+    width: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    background-color: black;
+    color: rgb(173, 169, 169);
+    font-family: 'Alegreya Sans', sans-serif;
+    /* Set the fixed height of the footer here */
+    height: 160px;
+}
+
+.title {
+    font-size: x-large;
+    font-weight: 500;
+}
+
+.copyright {
+
+    padding-right: 150px;
+    list-style: none;
+}
+
+.sectionTitle {
+    margin-bottom: 10px;
+    color: white;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin-right: 150px;
+}
+
+#home {
+    text-decoration: none;
+    color: white;
+    font-weight: 100;
+}
+
+#home:hover {
+    color: rgb(173, 169, 169);
+
+}
+</style>
+<div id="footer">
+
+    <footer class="footer">
+        <div class="copyright">
+            <p class="sectionTitle title">LIBRARIA</p>
+            Copyright &copy;All rights reserved.
+        </div>
+        <div class="container1">
+            <a href="{% url 'home' %}" id="home">HOME</a><br>
+            <p class="SectionTitle" style="color:white;">ABOUT</p>
+            <div class="section">LIbraria is here to help to get the books with ease and simplicity. It contains dozens
+                of books of different categories.</div>
+        </div>
+        <div class="container2">
+
+            <div class="SectionTitle" style="color:white;">CONTACT</div>
+            <div class="section">
+                <form action="" method="POST">
+                    <input style="width:100%;" type="email" name="emailid" placeholder="Enter your email" id=""><br><br>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="query" placeholder="Type yout query here" id="query"
+                            rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+
+        </div>
+
+    </footer>
+</div>  

@@ -17,7 +17,6 @@ urlpatterns = [
     path('booksearch/',views.bookSearch,name='booksearch'),
     path('reviewpage/<str:pk>/',views.reviewPage,name='reviewpage'),
     path('bookdetail/<str:pk>/',views.bookDetail,name='bookdetail'),
-    path('updateorder/<str:pk>/',views.updateOrder,name='updateorder'),
     path('updatbook/<str:pk>/',views.updateBook,name='updatebook'),
     path('mybooks/',views.myBooks,name='mybooks'),
     path('myissuerequest/',views.myissuereqeuest,name='myissuerequest'),
