@@ -28,6 +28,7 @@ urlpatterns = [
     path('upvote/<str:pk>/',views.upvote,name='upvote'),
     path('downvote/<str:pk>/',views.downvote,name='downvote'),
     path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
+    path('savequery/',views.saveQuery,name='savequery'),
 
 
 ]

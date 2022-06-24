@@ -270,3 +270,8 @@ def downvote(request,pk):
 
     return redirect(reverse('bookdetail',args=pk))
 
+def saveQuery(request):
+    email=request.POST.get('emailid')
+    query=request.POST.get('query')
+    customerQuery.objects.create(emailid=email,query=query)
+    return redirect('home')

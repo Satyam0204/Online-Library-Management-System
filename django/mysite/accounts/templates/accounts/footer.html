@@ -24,7 +24,7 @@ footer {
     color: rgb(173, 169, 169);
     font-family: 'Alegreya Sans', sans-serif;
     /* Set the fixed height of the footer here */
-    height: 160px;
+    height: 200px;
 }
 
 .title {
@@ -78,12 +78,14 @@ footer {
 
             <div class="SectionTitle" style="color:white;">CONTACT</div>
             <div class="section">
-                <form action="" method="POST">
+                <form action="{% url 'savequery' %}" method="POST">
+                    {% csrf_token %}
                     <input style="width:100%;" type="email" name="emailid" placeholder="Enter your email" id=""><br><br>
                     <div class="mb-3">
                         <textarea class="form-control" name="query" placeholder="Type yout query here" id="query"
                             rows="2"></textarea>
                     </div>
+                    <input type="submit" value="Submit" class="btn btn-outline-secondary sm">
                 </form>
             </div>
             

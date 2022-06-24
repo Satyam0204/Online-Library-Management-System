@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.models import User
 
-from accounts.models import Book, Category, Order, Review
+from accounts.models import Book, Category, Order, Review, customerQuery
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -37,4 +37,7 @@ class Issue(ModelForm):
     class Meta:
         model=Order
         fields=['user','book','status']
-
+class QueryForm(ModelForm):
+    class Meta:
+        model=customerQuery
+        fields='__all__'
