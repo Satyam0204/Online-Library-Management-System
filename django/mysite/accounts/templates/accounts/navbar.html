@@ -1,8 +1,14 @@
 {% load static %}
+{%  url 'navbar' %}
 <style>
   .hello{
     color:white;
   }
+  
+  .nav-link:active ,.nav-link:focus{
+    border-bottom:2px solid red;
+  }
+
 </style>
 
 <nav  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -13,25 +19,25 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="tablist">
           <li class="nav-item ">
-            <a class="nav-link " aria-current="page" href="{% url 'home' %}">Home</a>
+            <a class="nav-link "   aria-current="page" href="{% url 'home' %}">Home</a>
           </li>
           
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'mybooks' %}">myBooks</a>
+            <a class="nav-link " aria-current="page" href="{% url 'mybooks' %}">myBooks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'myissuerequest' %}">myIssueRequests</a>
+            <a class="nav-link" aria-current="page" href="{% url 'myissuerequest' %}">myIssueRequests</a>
           </li>
-          {% if request.user.is_staff %}
+          {% if request.user.is_admin %}
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'books' %}">Manage Books</a>
+            <a class="nav-link" aria-current="page" href="{% url 'books' %}">Manage Books</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'customers' %}">Customers</a>
+            <a class="nav-link" aria-current="page" href="{% url 'customers' %}">Customers</a>
           </li>
-          {% endif %}
+          {%  endif %}
         </ul>
         {% if user.is_authenticated %}
         <span class="hello">Hello, {{request.user}}</span>

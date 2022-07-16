@@ -26,9 +26,13 @@ urlpatterns = [
     path('removeadmin/<str:pk>/',views.removeAdmin,name='removeadmin'),
     path('issuebook/<str:pk>/',views.issuebook,name='issuebook'),
     path('upvote/<str:pk>/',views.upvote,name='upvote'),
+    path('removeupvote/<str:pk>/',views.rm_upvote,name='removeupvote'),
     path('downvote/<str:pk>/',views.downvote,name='downvote'),
+    path('removedownvote/<str:pk>/',views.rm_downvote,name='removedownvote'),
     path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
     path('savequery/',views.saveQuery,name='savequery'),
+    path('navbar/',views.nav,name='navbar'),
+   
 
 
 ]

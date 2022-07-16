@@ -1,4 +1,5 @@
 from ast import Delete
+import re
 from unicodedata import name
 from django.shortcuts import render, redirect  
 from django.contrib.auth.forms import UserCreationForm
@@ -9,15 +10,22 @@ from django.contrib.auth.decorators import login_required
 from .forms import AddBook, AddCategory, AddReview, CreateUserForm,Issue
 from .decorators import unauthorizedUsers, allowedUsers
 from django.contrib.auth.models import Group
-from .filters import Bookfilter
+from .filters import Bookfilter, Orderfilter
 from django.urls import reverse
+from django.http import HttpResponse,JsonResponse
 # Create your views here.
+
 
 
 
 def home(request):
     books=Book.objects.all()
-    
+    # if request.is_ajax():
+    #     term=request.GET.get('term')
+    #     book=Book.objects.filter(name=term)
+    #     response=list(book.values())
+    #     print(response)
+    #     return JsonResponse(response, safe=False)
     myfilter=Bookfilter(request.GET,queryset=books)
     books=myfilter.qs
     context={'books':books,'myfilter':myfilter}
@@ -28,7 +36,10 @@ def home(request):
 
 def customers(request):
     orders=Order.objects.all().order_by('user','dateordered')
-    context={'orders':orders}
+    myfilter=Orderfilter(request.GET,queryset=orders)
+    orders=myfilter.qs
+    context={'orders':orders,'myfilter':myfilter}
+    
     return render(request, 'accounts/customers.html',context)
 
 @login_required(login_url='login')
@@ -186,8 +197,20 @@ def myissuereqeuest(request):
 def saveOrder(request,pk):
     order=Order.objects.get(id=pk)
     order.status=request.POST.get('status')
-    order.save()
-    return redirect('home')
+    q=order.book.quantity
+    if request.method=="POST":
+        if request.POST.get('status')=='Rented':
+            q=q-1
+            book=Book.objects.get(name=order.book.name)
+            book.quantity=q
+            book.save()
+        if request.POST.get('status')=='Returned':
+            q=q+1
+            book=Book.objects.get(name=order.book.name)
+            book.quantity=q
+            book.save()
+        order.save()
+        return redirect('home')
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
@@ -262,6 +285,17 @@ def upvote(request,pk):
 
     return redirect(reverse('bookdetail',args=pk))
 
+def rm_upvote(request,pk):
+    user=request.user
+    book=Book.objects.get(id=pk)
+    book.upvote.remove(user)
+    return redirect (reverse('bookdetail',args=pk))
+def rm_downvote(request,pk):
+    user=request.user
+    book=Book.objects.get(id=pk)
+    book.downvote.remove(user)
+    return redirect (reverse('bookdetail',args=pk))
+
 def downvote(request,pk):
     user=request.user
     book=Book.objects.get(id=pk)
@@ -275,3 +309,11 @@ def saveQuery(request):
     query=request.POST.get('query')
     customerQuery.objects.create(emailid=email,query=query)
     return redirect('home')
+
+def nav(request):
+    user=request.user
+    admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=admin)
+    customer=Group.objects.get(name='customer')
+    context={'user':user,'admin_users':admin_users,'customer':customer}
+    return render(request,'accounts/navbar.html',context)

@@ -8,3 +8,8 @@ class Bookfilter( django_filters.FilterSet):
     class Meta:
         model = Book
         fields =['name','category']
+class Orderfilter( django_filters.FilterSet):
+    
+    class Meta:
+        model = Order
+        fields =['user','book','status']

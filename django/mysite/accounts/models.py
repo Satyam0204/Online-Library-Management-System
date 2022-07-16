@@ -66,6 +66,9 @@ class customerQuery(models.Model):
     emailid=models.EmailField(max_length=200,null=True,blank=True)
     query=models.TextField(max_length=500,null=True,blank=True)
 
+    def __str__(self):
+        return self.emailid
+
 
 
     

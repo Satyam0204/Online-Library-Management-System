@@ -1,8 +1,15 @@
 {% extends 'accounts/main.html' %} {% block content %}
 
-<br />
 
-<br />
+<br><br>
+<br><br>
+<form action="" method="GET">
+
+  {% csrf_token %}
+  {{myfilter.form}}
+<button class="btn btn-secondary search input" type="submit">Search</button>
+
+</form>
 
 <div class="row">
   <div class="col-md">
@@ -11,7 +18,8 @@
         <tr>
           <th>Customer</th>
           <th>Book</th>
-          <th>Date Issued</th>
+
+
           <th>Status</th>
           <th></th>
           
@@ -22,7 +30,6 @@
             {% csrf_token %}
             <td>{{i.user}}</td>
             <td>{{i.book.name}}</td>
-            <td>{{i.dateordered}}</td>
 
             <td><select name="status" class="form-select" aria-label="Default select example">
               <option selected>{{i.status}}</option>
