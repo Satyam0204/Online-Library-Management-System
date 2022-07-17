@@ -1,28 +1,44 @@
-
 {% extends 'accounts/main.html' %}
-<br>
-{% block content %}
-<div class="searchtext">
-
-
-        <div class="card-group"  >
-
-            {% for i in books %}
-            
-            <div class="card" style="width: 30em; margin: 5px;">
-                <img src="{{i.image.url}}" class="card-img-top" alt="...">
-                <div class="card-body" >
-                    <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6>
-                    <h6 style="width: 10rem;"class="card-title">{{i.author}}</h6>
-                    
-                </div>
-            </div>
-            
-            {% endfor %}
-        </div>
+{% load static %}
+<style>
+    .booklink{
+        text-decoration: solid;
         
+        color: black;
+    }
+    .booklink:hover{
+        color: #2774f0;
+        text-shadow: black;
+    }
+    .card:hover{
+        box-shadow:2px 2px 2px 1px grey;
+        
+    }
 
+</style>
 
+{% block content %}
+
+<br><br><br>
+
+<div class="card-group" style="display: flex;"  >
+
+    {% for i in books %}
+    
+    <div  class="card" style=" margin: 5px;">
+        <img style="height: 275px ; "src="{{i.image.url}}" class="card-img-top" alt="...">
+        <div class="card-body" >
+            <a href="{% url 'bookdetail' i.id %}"  class="booklink">{{i.name}}</a>
+            <br>
+            <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
+            <p style="width: 10rem; font-weight: 279;"class="card-title">{{i.author}}</p>
+            
+        </div>
+
+        
+    </div>
+    
+    {% endfor %}
 </div>
 
 {% endblock %}

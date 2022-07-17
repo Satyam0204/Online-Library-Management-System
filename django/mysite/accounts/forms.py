@@ -22,6 +22,7 @@ class AddBook(ModelForm):
     class Meta:
         model=Book
         fields='__all__'
+        exclude=['upvote','downvote']
 
 class AddCategory(ModelForm):
     class Meta:

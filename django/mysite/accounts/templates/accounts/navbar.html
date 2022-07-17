@@ -1,5 +1,5 @@
 {% load static %}
-{%  url 'navbar' %}
+
 <style>
   .hello{
     color:white;
@@ -30,7 +30,7 @@
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'myissuerequest' %}">myIssueRequests</a>
           </li>
-          {% if request.user.is_admin %}
+          {% if request.user in admin_users %}
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'books' %}">Manage Books</a>
           </li>

@@ -58,8 +58,8 @@ background-image: url('/static/images/loginpage.jpeg');
     color: darkorange;
 }
 .searchtext{
-    position: absolute;
-    top: 250px;
+    
+
 }
 #id_name, #id_category{
     border-radius: 20px;

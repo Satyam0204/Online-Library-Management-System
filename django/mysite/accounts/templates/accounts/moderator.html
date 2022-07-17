@@ -17,7 +17,9 @@
           {% for i in admin_users %}
           <tr>
             <td>{{i.username}}</td>
+            {% if request.user.is_staff %}
             <td><a href="{% url 'removeadmin' i.id %}" class="btn btn-primary" >Remove Admin</a></td>
+            {% endif %}
           </tr>
   
           {% endfor %}
@@ -41,7 +43,9 @@
           {% for i in customer_users %}
           <tr>
             <td>{{i.username}}</td>
+            {% if request.user.is_staff %}
             <td><a href="{% url 'addadmin' i.id %}" class="btn btn-primary" >Add to Admin</a></td>
+            {% endif %}
           </tr>
   
           {% endfor %}

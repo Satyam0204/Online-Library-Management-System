@@ -1,6 +1,7 @@
 from ast import Delete
-import re
+
 from unicodedata import name
+from urllib import request
 from django.shortcuts import render, redirect  
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -20,6 +21,8 @@ from django.http import HttpResponse,JsonResponse
 
 def home(request):
     books=Book.objects.all()
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     # if request.is_ajax():
     #     term=request.GET.get('term')
     #     book=Book.objects.filter(name=term)
@@ -28,17 +31,19 @@ def home(request):
     #     return JsonResponse(response, safe=False)
     myfilter=Bookfilter(request.GET,queryset=books)
     books=myfilter.qs
-    context={'books':books,'myfilter':myfilter}
+    context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
     return render(request, 'accounts/home.html',context)
 
 @login_required(login_url='login')
 @allowedUsers(['admin'])
 
 def customers(request):
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     orders=Order.objects.all().order_by('user','dateordered')
     myfilter=Orderfilter(request.GET,queryset=orders)
     orders=myfilter.qs
-    context={'orders':orders,'myfilter':myfilter}
+    context={'orders':orders,'myfilter':myfilter,'admin_users':admin_users}
     
     return render(request, 'accounts/customers.html',context)
 
@@ -48,6 +53,8 @@ def customers(request):
 def books(request):
 
     books=Book.objects.all()
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     
     form=AddBook()
     categoryform=AddCategory()
@@ -65,7 +72,7 @@ def books(request):
                 categoryform.save()
                 return redirect('books')
     
-    return render(request, 'accounts/books.html',{'books':books, 'form':form, 'categoryform': categoryform})
+    return render(request, 'accounts/books.html',{'books':books, 'form':form, 'categoryform': categoryform,'admin_users':admin_users})
 
 def registerpage(request):
     form= CreateUserForm()
@@ -78,11 +85,11 @@ def registerpage(request):
 
             group=Group.objects.get(name='customer')            
             user.groups.add(group)
-            login(request, user)       
-            return redirect('home')
-        
-        
-        messages.error(request,"Account was not created !!!")
+            if user is not None:
+                login(request, user)       
+                return redirect('home')
+            else:
+                messages.error(request,"Account was not created !!!")
 
     context={'form':form}
     return render(request, 'accounts/register.html',context)
@@ -145,24 +152,29 @@ def deleteBook(request,pk):
 
 def bookSearch(request):
     books=Book.objects.all()
-    
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     myfilter=Bookfilter(request.GET,queryset=books)
     books=myfilter.qs
-    context={'books':books,'myfilter':myfilter}
+    context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
     return render(request,'accounts/booksearch.html',context)
 
 @login_required(login_url='login')
 
 
 def reviewPage(request,pk):
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     books=Book.objects.get(id=pk)
     reviews=books.review_set.all()
-    context={'books':books,'reviews':reviews}
+    context={'books':books,'reviews':reviews,'admin_users':admin_users}
     return render(request,'accounts/reviewpage.html',context)
 
 
 @login_required(login_url='login')
 def bookDetail(request,pk):
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     book=Book.objects.get(id=pk)
     user=request.user
     uv=book.upvote.all()
@@ -173,23 +185,27 @@ def bookDetail(request,pk):
     votes=upvotes-downvotes
     pending=user.order_set.filter(book=book,status='Pending')
     issued=user.order_set.filter(book=book,status='Rented')
-    context={'book':book,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv}
+    context={'book':book,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users}
     return render(request,'accounts/bookdetail.html',context)
 
 
 @login_required(login_url='login')
 def myBooks(request):
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     user=request.user
     orders=user.order_set.filter(status='Rented')
-    context={'orders':orders}
+    context={'orders':orders,'admin_users':admin_users}
     return render(request,'accounts/mybooks.html',context)
 
 @login_required(login_url='login')
 def myissuereqeuest(request):
     user=request.user
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
     orders=user.order_set.filter(status='Pending')
     
-    context={'orders':orders}
+    context={'orders':orders,'admin_users':admin_users}
     return render(request,'accounts/myissuerequest.html',context)
 
 @login_required(login_url='login')
@@ -310,10 +326,11 @@ def saveQuery(request):
     customerQuery.objects.create(emailid=email,query=query)
     return redirect('home')
 
-def nav(request):
-    user=request.user
-    admin=Group.objects.get(name='admin')
-    admin_users=User.objects.filter(groups=admin)
-    customer=Group.objects.get(name='customer')
-    context={'user':user,'admin_users':admin_users,'customer':customer}
-    return render(request,'accounts/navbar.html',context)
+# def nav(request):
+    
+#     admin=Group.objects.get(name='admin')
+#     admin_users=User.objects.filter(group=admin)
+#     customer=Group.objects.get(name='customer')
+#     context={'admin_users':admin_users,'customer':customer}
+#     return render(request,'accounts/navbar .html',context)
+

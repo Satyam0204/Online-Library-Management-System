@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
 <style>
-    input{
-        display: none;
+    .feedback{
+
     }
+
     .bookcontainer{
-        justify-content: center;
+        justify-content: center;        
         align-items: center;
         display: flex;
         margin: 1em;
@@ -46,40 +47,49 @@
 <br><br>
 <br>
 <div class="bookcontainer">
-    <div class="votecontainer">
-        {% if request.user in uv %}
-        <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
-        {%else%}
-        <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
-        {%endif%}
-        <p class="votes">{{votes}}</p>
+    <div class="feedback">
+    
+        <div class="votecontainer">
+            {% if request.user in uv %}
+            <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
+            {%else%}
+            <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+            {%endif%}
+            <p class="votes">{{votes}}</p>
         {% if request.user in dv %}
         <a href="{% url 'removedownvote' book.id %}"><img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes"></a>
         {%else%}
         <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
         {%endif%}
     </div>
+    <br><br><br><br>
+    <div class="review"> 
+        <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
+        
+    </div>
+    </div>
     <div class="imgcontainer">
         <img style="height: 305px; margin:10px; width: 220px; " src="{{book.image.url}}" alt="">
-    </div><input type="number"name="quantity" value="{{i.book.quantity}}" ></td>
+    </div>
     <div class="book">
         <br>
         <h2>{{book.name}}</h2>
         <p>{{book.author}}</p>
         <p>{{book.language}}</p>
+        <br><br><br><br>
         <div class="btncontainer">
             {% if pending %}
-                <h5>Issual Request sent</h5>
+            <h5>Issual Request sent</h5>
             {% elif issued %}
-                <h5>Issued</h5>
+            <h5>Issued</h5>
             {% elif book.quantity is 0 %}
-                <h5>Not Available</h5>
+            <h5>Not Available</h5>
             {% else %}
-                <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
+            <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
             {% endif %}
-
-        </div>
             
+        </div>
+        
     </div>
 </div>
 <div >
@@ -88,10 +98,6 @@
         
         <p>About the book</p>
         <p>{{book.description}}</p>
-    </div>
-    <div class="review"> 
-        <a class="btn btn-primary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
-            
     </div>
 </div>
 
