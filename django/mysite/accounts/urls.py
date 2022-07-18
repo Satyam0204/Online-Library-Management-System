@@ -31,6 +31,7 @@ urlpatterns = [
     path('removedownvote/<str:pk>/',views.rm_downvote,name='removedownvote'),
     path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
     path('savequery/',views.saveQuery,name='savequery'),
+    path('booksuggestions/',views.booksuggestions,name='booksuggestions'),
     # # path('navbar/',views.nav,name='navbar'),
    
 

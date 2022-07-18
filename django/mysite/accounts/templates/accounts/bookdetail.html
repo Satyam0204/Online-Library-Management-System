@@ -79,11 +79,11 @@
         <br><br><br><br>
         <div class="btncontainer">
             {% if pending %}
-            <h5>Issual Request sent</h5>
+            <h5 style="color: rgb(70, 70, 216);">Issual Request sent</h5>
             {% elif issued %}
-            <h5>Issued</h5>
+            <h5 style="color: rgb(42, 238, 42);">Issued</h5>
             {% elif book.quantity is 0 %}
-            <h5>Not Available</h5>
+            <h5 style="color:rgb(226, 66, 66) ;">Not Available</h5>
             {% else %}
             <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
             {% endif %}

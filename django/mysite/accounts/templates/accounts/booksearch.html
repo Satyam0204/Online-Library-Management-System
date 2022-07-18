@@ -25,7 +25,7 @@
 
     {% for i in books %}
     
-    <div  class="card" style=" margin: 5px;">
+    <div  class="card" style=" display: flex;;margin: 5px;">
         <img style="height: 275px ; "src="{{i.image.url}}" class="card-img-top" alt="...">
         <div class="card-body" >
             <a href="{% url 'bookdetail' i.id %}"  class="booklink">{{i.name}}</a>

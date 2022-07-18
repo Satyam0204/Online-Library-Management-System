@@ -1,4 +1,5 @@
 from ast import Delete
+import re
 
 from unicodedata import name
 from urllib import request
@@ -21,6 +22,7 @@ from django.http import HttpResponse,JsonResponse
 
 def home(request):
     books=Book.objects.all()
+    category=Category.objects.all()
     group_admin=Group.objects.get(name='admin')
     admin_users=User.objects.filter(groups=group_admin)
     # if request.is_ajax():
@@ -28,10 +30,10 @@ def home(request):
     #     book=Book.objects.filter(name=term)
     #     response=list(book.values())
     #     print(response)
-    #     return JsonResponse(response, safe=False)
-    myfilter=Bookfilter(request.GET,queryset=books)
-    books=myfilter.qs
-    context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
+    #    return JsonResponse(response, safe=False)
+    # myfilter=Bookfilter(request.GET,queryset=books)
+    # books=myfilter.qs
+    context={'books':books,'admin_users':admin_users,'category':category}
     return render(request, 'accounts/home.html',context)
 
 @login_required(login_url='login')
@@ -150,14 +152,43 @@ def deleteBook(request,pk):
 
 
 
+
+# def bookSearch(request):
+#     books=Book.objects.all()
+#     group_admin=Group.objects.get(name='admin')
+#     admin_users=User.objects.filter(groups=group_admin)
+#     myfilter=Bookfilter(request.GET,queryset=books)
+#     books=myfilter.qs
+#     context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
+#     return render(request,'accounts/booksearch.html',context)
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+def booksuggestions(request):
+    if is_ajax(request):
+
+        term=request.GET.get('term')
+        books=Book.objects.filter(name__icontains=term)
+        response_content=list(books.values())
+
+        return JsonResponse(response_content,safe=False)
+    return render(request,'accounts/home.html')
+
+
+
 def bookSearch(request):
-    books=Book.objects.all()
+    books=Book.objects.none()
     group_admin=Group.objects.get(name='admin')
     admin_users=User.objects.filter(groups=group_admin)
-    myfilter=Bookfilter(request.GET,queryset=books)
-    books=myfilter.qs
-    context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
+    id=request.GET.get('name')
+    category=request.GET.get('category')
+    books_byname=Book.objects.filter(id=id)
+    books_category=Book.objects.filter(category__name=category)
+    books=books_byname.union(books_category)
+    context={'books':books,'admin_users':admin_users}
     return render(request,'accounts/booksearch.html',context)
+
+
 
 @login_required(login_url='login')
 
@@ -333,4 +364,3 @@ def saveQuery(request):
 #     customer=Group.objects.get(name='customer')
 #     context={'admin_users':admin_users,'customer':customer}
 #     return render(request,'accounts/navbar .html',context)
-
