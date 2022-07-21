@@ -1,24 +1,50 @@
+*{
+    box-sizing: border-box;
+}
+
 
 body{
     background-color: rgba(248, 248, 248, 0.904);
 }   
-#bghome{
-    height: 40rem;
+/* /* #bghome{
+    height: 100vh;
     width: 100%;
     z-index: -1;
-    opacity: 0.6;
-}
-#intro{background-color: rgba(0, 0, 0, 0.548);
-    margin: 50px;
-    padding: 20px;
-   border-radius:15px;
-    color: rgba(255, 255, 255, 0.678);
-    z-index: 1;
-    position: absolute;
-    top: 15rem;
-    left:20em;
+    opacity: 0.6; */
+
+.introcontainer{
+    background-image: url(/static/images/bghome.jpg) ;
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+
+    /* Full height */
+    height: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    backdrop-filter: blur(50px);
+    justify-content: start;
     align-items: center;
-    justify-content: center;
+}
+#intro{
+     
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.5); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 32.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 60%;
+    padding: 20px;
+    text-align: center;
+    
 }
 
 
@@ -33,18 +59,21 @@ nav div ul li a:active{
     top: 230px;
 } */
 #login {
-    position: absolute;
+
 
     
     background-repeat: no-repeat;
     background-size: contain;
     height: 307px;
-    top: 176px;
-    left: 20px;
+    top: 30%;
+    left: 40%;
+    right: 40%;
 }
 .login{
 
 display: flex;
+
+
 background-image: url('/static/images/loginpage.jpeg');
 }
 .input{
@@ -57,10 +86,8 @@ background-image: url('/static/images/loginpage.jpeg');
 .logintext{
     color: darkorange;
 }
-.searchtext{
-    
 
-}
+
 #id_name, #id_category{
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.541);

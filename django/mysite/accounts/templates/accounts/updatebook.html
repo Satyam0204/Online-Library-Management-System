@@ -1,16 +1,68 @@
 <style>
+    @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:300);
+    body{
+        background: url('/static/images/bgedit.jpg') no-repeat center center/cover;
+        backdrop-filter:blur(6px);
+        justify-content:center;
+        align-items: center;
+        display: flex;
+        font-family: 'Alegreya Sans', sans-serif;
+    }
     .container{
         width: 300px;
-        ;
+        background-color: rgba(0, 0, 0, 0.45);
+        border: 5px solid wheat;
+        width: 25%;
+        color: rgb(238, 225, 44);
     }
     form{
-
-        padding: 10px;
+        font-size: 1.2em;
+        font-weight:bolder;
+        padding: 35px;
         display: flex;
         flex-direction: column;
     }
+    input{
+        background-color: rgba(59, 54, 54, 0.219);
+        color: white;
+        border: 1px solid white;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    #id_description{
+        background-color: rgba(59, 54, 54, 0.219);
+        color: white;
+        border: 1px solid white;
+        padding: 5px;
+        border-radius: 10px;
+
+    }
     select{
-        padding: 20px;
+        background-color: rgba(59, 54, 54, 0.219);
+        color: white;
+        border: 1px solid white;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    select option{
+        color: black;
+    }
+
+    label{
+        padding-top: 12px;
+    }
+    #id_image{
+        border: none;
+        background:none;
+    }
+    #edit{
+        height: 40px;
+        border: 1px solid wheat;
+    }
+    #edit:hover{
+        height: 40px;
+        background-color: wheat;
+        color: black;
         
     }
 </style>
@@ -20,6 +72,6 @@
         
         {% csrf_token %}
         {{update}}
-        <input type="submit" role="button" class="btn">
+        <input id="edit" type="submit" role="button" class="btn">
     </form>
 </div>

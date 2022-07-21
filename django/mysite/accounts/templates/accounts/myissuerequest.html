@@ -2,33 +2,39 @@
 <br>
 <br><br>
 
-<div>
-    <h5 style="text-align: center;">Your have requested to issue the following books</h5>
+<h5 style="text-align: center;">Your have requested to issue the following books</h5>
+<div style="justify-content: center; align-items:center; display: flex; width: 70%;">
+  
 
     <div class="row">
-        <div class="col-md">
-          <div class="card card-body">
-            <table class="table table-sm">
+      <div class="col-md">
+        <div class="card card-body" style="width: 380%;"> 
+          <table class="table table-sm">
+            <thead class="table-dark">
+
               <tr>
                 
-                <th>Book</th>
-                <th>Category</th>
-                <th></th>
-                <th></th>
+                <th width="10%" style="text-align:center;">Book</th>
+                <th width="10%"  style="text-align:center;">Category</th>
+                <th width="10%"  style="text-align:center;"></th>
               </tr>
+            </thead>
+              <tbody  class="table-info">
               {% for i in orders %}
               <tr>
-               
-                <td>{{i.book.name}}</td>
-                <td>{{i.book.category}}</td>
-
-                <td>  <a href="{% url 'delwish' i.id %}" class="btn btn-outline-danger">Cancel</a></td>
+                
+                <td style="text-align:center;">{{i.book.name}}</td>
+                <td style="text-align:center;">{{i.book.category}}</td>
+                
+                <td style="text-align:center;">  <a href="{% url 'delwish' i.id %}" class="btn btn-outline-danger">Cancel</a></td>
               </tr>
-      
+              
               {% endfor %}
+            </tbody>
             </table>
           </div>
         </div>
       </div>
-</div>
+    </div>
+  </div>
 {% endblock %}

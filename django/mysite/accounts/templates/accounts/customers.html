@@ -1,57 +1,91 @@
 {% extends 'accounts/main.html' %} {% block content %}
 
+<style>
+  #id_user{
+    width: 25%;
+  }
+#searchorder{
+  justify-content: center;
+  align-items: end;
+  display: flex
+}
+label{
+  padding: 10px;
+}
+#searchorder select,#searchorder span{
+  height: 40px;
+}
+#select2-id_user-container{
+  height: 40px;
+}
 
+</style>
 <br><br>
 <br><br>
-<form action="" method="GET">
+<form id="searchorder" action="" method="GET">
 
   {% csrf_token %}
   {{myfilter.form}}
-<button class="btn btn-secondary search input" type="submit">Search</button>
+<button class="btn btn-secondary mx-2 search input" type="submit">Search</button>
 
 </form>
 <br>
-<div class="btns">
-  <a href="" type="button" class="btn btn-outline-secondary me-2">View Queries</a>
+<div class="btns" style="display:flex;padding: 10px; justify-content: center; align-items: center; ">
+  <a href="" type="button" class="btn btn-outline-secondary me-5">View Queries</a>
   <a href="{% url 'moderator' %}" type="button" class="btn btn-outline-secondary me-2">Go To Moderator</a>
 </div>
+<div style="justify-content: center; align-items:center; display: flex; width: 70%;"> 
+  <div class="row" >
+    <div class="col-md">
+      <div class="card card-body" style="width: 230%;">
+        <table class="table table-success tabble-stripped table-sm" style="justify-content: center; align-items: center; ">
+          <thead class="table-dark">
 
-<div class="row">
-  <div class="col-md">
-    <div class="card card-body">
-      <table class="table table-sm">
-        <tr>
-          <th>Customer</th>
-          <th>Book</th>
+            <tr>
+              <th>Customer</th>
+              <th>Book</th>
+              
+              
+              <th>Status</th>
+              <th></th>
+              
+            </tr>
+          </thead>
+          <tbody>
 
-
-          <th>Status</th>
-          <th></th>
-          
-        </tr>
-        {% for i in orders %}
-        <tr>
-          <form action="{% url 'saveorder' i.id  %}" method="POST">
-            {% csrf_token %}
-            <td>{{i.user}}</td>
-            <td>{{i.book.name}}</td>
-
-            <td><select name="status" class="form-select" aria-label="Default select example">
-              <option selected>{{i.status}}</option>
-              <option value="Rented">Rented</option>
-              <option value="Pending">Pending</option>
-              <option value="Returned">Returned</option>
-            </select></td>
-            <td>
-              <input type="submit" value="Update" class="btn btn-primary sm">
-            </td>
-          </form>
-        </tr>
-
+            {% for i in orders %}
+            <tr>
+              <form action="{% url 'saveorder' i.id  %}" method="POST">
+                {% csrf_token %}
+                <td>{{i.user}}</td>
+                <td>{{i.book.name}}</td>
+                
+                <td><select name="status" class="form-select" aria-label="Default select example">
+                  <option selected>{{i.status}}</option>
+                  <option value="Rented">Rented</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Returned">Returned</option>
+                </select></td>
+                <td>
+                  <input type="submit" value="Update" class="btn btn-primary  sm" style="width: 100%;" >
+                </td>
+              </form>
+            </tr>
+          </tbody>
+        
         {% endfor %}
       </table>
     </div>
   </div>
 </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#id_user').select2();
+});
+</script>
 
 {% endblock %}

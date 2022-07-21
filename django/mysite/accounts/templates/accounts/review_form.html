@@ -5,31 +5,44 @@
 <style>
     body{
         background: url('/static/images/reviewbackground.jpg') no-repeat center center/cover;
+
     }
+ 
+        
+
     .reviewform{
-        
-        display: flex;
-        
-        top: 5px;
-        padding:1em;
-        justify-content: center;
+       
+   
+        width:100%;
+        justify-self: center;
         align-items: center;
         
     }
-    .form{
-        
-        margin: 1em;
-        position: relative;
-        
-    }
-    form{
+    .review{
         background-color: rgba(134, 49, 49, 0.651);
-        margin: 1em;
+        width: 25%;
+
         padding: 1em;
-        
+        position: absolute;
+        top: 20%;
+        left: 39%;
+        display: flex;
+        flex-direction:column;
+
+
+    }
+    #btn{
+        background-color: rgba(134, 49, 49, 0.651);
+        border: 2px solid wheat;
+        color: wheat;
+    }
+    #btn:hover{
+        background-color: wheat;
+        color:  rgba(134, 49, 49, 0.651);
+        border:2px solid wheat;
     }
     select{
-        width: 100%;
+        
         background-color: rgba(233, 206, 221, 0.603);
     }
     textarea{
@@ -38,13 +51,13 @@
 
 </style>
 <br>
-<div class="form ">
+
     <div class="reviewform">
         
-        <form action="{% url 'addreview' book.id  %}" method="POST">
+        <form class="review" action="{% url 'addreview' book.id  %}" method="POST">
             
         
-            <h4 style="text-align:center">Review for {{book.name}} </h4>
+            <h4 style="text-align:center; color: wheat; ">Review for {{book.name}} </h4>
             <br>
             {% csrf_token %}
             <div style="display: none;">
@@ -61,7 +74,7 @@
             <br>
             {{form.Review}}
             <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button id="btn" type="submit" class="btn btn-primary ">Submit</button>
         </form>
     </div>
 

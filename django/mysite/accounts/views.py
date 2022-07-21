@@ -18,7 +18,13 @@ from django.http import HttpResponse,JsonResponse
 # Create your views here.
 
 
-
+def main():
+    group_customer=Group.objects.get(name='customer')
+    customer_users=User.objects.filter(groups=group_customer)
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
+    context={'customer_users':customer_users,'admin_users':admin_users}
+    return render('accounts/main.html',context)
 
 def home(request):
     books=Book.objects.all()
