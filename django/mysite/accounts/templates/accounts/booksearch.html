@@ -1,37 +1,55 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
+{% block content %}
 <style>
+    
     .booklink{
         text-decoration: solid;
         
         color: black;
     }
     .booklink:hover{
-        color: #2774f0;
+        color: #d4550b;
         text-shadow: black;
-    }
-    .card:hover{
-        box-shadow:2px 2px 2px 1px grey;
         
+    }
+
+    
+    #bookbox{
+        
+
+        padding: 10px;
+        background-color: rgba(228, 198, 154, 0.897);
+    }
+    #bookbox:hover{
+        box-shadow:2px 2px 2px 1px grey;
+       
+        padding: 10px;
+        background-color: rgba(134, 102, 62, 0.322);
     }
 
 </style>
 
-{% block content %}
 
 <br><br><br>
-
-<div class="card-group" style="display: flex;"  >
-
+<div class="card-group" style="flex-direction:column ;" >
     {% for i in books %}
+    <div style="justify-content: center; align-items: center; display:flex ;">
+    <b style>You searched for "{{i.name}} "</b>
+    </div>
+    <br>
+
     
-    <div  class="card" style=" display: flex;;margin: 5px;">
-        <img style="height: 275px ; "src="{{i.image.url}}" class="card-img-top" alt="...">
-        <div class="card-body" >
-            <a href="{% url 'bookdetail' i.id %}"  class="booklink">{{i.name}}</a>
-            <br>
-            <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
-            <p style="width: 10rem; font-weight: 279;"class="card-title">{{i.author}}</p>
+    <div  class="card"  style="align-items: center;">
+        <div id="bookbox">
+
+            <img style="height: 400px; width:250px;" src="{{i.image.url}}" class="card-img-top" alt="...">
+            <div class="card-body" >
+                <a href="{% url 'bookdetail' i.id %}"  class="booklink card-title   ">{{i.name}}</a>
+                <br>
+                <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
+                <p style="font-weight: 278;" class="card-title">{{i.author}}</p>
+            </div>
             
         </div>
 

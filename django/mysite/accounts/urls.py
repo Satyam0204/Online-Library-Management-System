@@ -12,7 +12,6 @@ urlpatterns = [
     path('register/',views.registerpage,name='register'),
     path('logout/',views.logoutpage,name='logout'),
     path('addreview/<str:pk>/',views.createReview,name='addreview'),
-    path('userpage/',views.userProfile,name='userpage'),
     path('deletebook/<str:pk>/',views.deleteBook,name='deletebook'),
     path('booksearch/',views.bookSearch,name='booksearch'),
     path('reviewpage/<str:pk>/',views.reviewPage,name='reviewpage'),
@@ -31,7 +30,9 @@ urlpatterns = [
     path('removedownvote/<str:pk>/',views.rm_downvote,name='removedownvote'),
     path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
     path('savequery/',views.saveQuery,name='savequery'),
+    path('viewquery/',views.viewQuery,name='viewquery'),
     path('booksuggestions/',views.booksuggestions,name='booksuggestions'),
+    
     # # path('navbar/',views.nav,name='navbar'),
    
 

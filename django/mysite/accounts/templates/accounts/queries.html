@@ -1,0 +1,29 @@
+{% extends 'accounts/main.html' %} {% block content %}
+
+<br />
+
+<br />
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-body">
+      <table class="table table-sm">
+        <tr>
+          <th>Email</th>
+          <th>Query</th>
+
+        </tr>
+        {% for i in queries %}
+        <tr>
+          <td>{{i.emailid}}</td>
+          <td>{{i.query}}</td>
+          
+        </tr>
+
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

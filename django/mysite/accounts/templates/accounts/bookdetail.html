@@ -2,16 +2,21 @@
 {% load static %}
 {% block content %}
 <style>
-    .feedback{
+    .thisbook   {
+        display: flex;
+        position: fixed;
+        right: 5%;
 
     }
 
     .bookcontainer{
-        justify-content: center;        
-        align-items: center;
+     
         display: flex;
+        
         margin: 1em;
         padding: 1em;
+        
+
     }
     .issueform{
         display:none
@@ -19,6 +24,7 @@
     .btncontainer{
         display: flex;
         padding: 1em;
+        margin-top: 50px;
     }
     form{
         margin: 5px;
@@ -43,33 +49,44 @@
         font-size: xx-large;
         justify-content: center;
     }
+    .desc{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        
+
+    }
+    .review{
+        margin-top: 50px;
+    }
     </style>
 <br><br>
 <br>
 <div class="bookcontainer">
-    <div class="feedback">
-    
-        <div class="votecontainer">
-            {% if request.user in uv %}
-            <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
-            {%else%}
-            <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
-            {%endif%}
-            <p class="votes">{{votes}}</p>
-        {% if request.user in dv %}
-        <a href="{% url 'removedownvote' book.id %}"><img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes"></a>
-        {%else%}
-        <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
-        {%endif%}
-    </div>
-    <br><br><br><br>
-    <div class="review"> 
-        <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
-        
-    </div>
-    </div>
+    <div class="thisbook">
+
+        <div class="feedback">
+            <div class="votecontainer">
+                {% if request.user in uv %}
+                <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
+                {%else%}
+                <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+                {%endif%}
+                <p class="votes">{{votes}}</p>
+                {% if request.user in dv %}
+                <a href="{% url 'removedownvote' book.id %}"><img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes"></a>
+                {%else%}
+                <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+                {%endif%}
+            </div>
+            <br><br><br><br>
+            <div class="review"> 
+                <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
+                
+            </div>
+        </div>
     <div class="imgcontainer">
-        <img style="height: 305px; margin:10px; width: 220px; " src="{{book.image.url}}" alt="">
+        <img style="height: 550px; margin:10px; width: 400px; " src="{{book.image.url}}" alt="">
     </div>
     <div class="book">
         <br>
@@ -91,14 +108,13 @@
         </div>
         
     </div>
-</div>
-<div >
-
+    </div>
     <div class="desc">
         
-        <p>About the book</p>
-        <p>{{book.description}}</p>
+        <b style="font-size: 1.25em;">About the book</b>
+        <p style="margin-top: 10px;">{{book.description}}</p>
     </div>
 </div>
+
 
 {% endblock %}

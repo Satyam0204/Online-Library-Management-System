@@ -1,6 +1,7 @@
 {% extends 'accounts/main.html' %} {% block content %}
 
 <style>
+
   #id_user{
     width: 25%;
   }
@@ -31,10 +32,10 @@ label{
 </form>
 <br>
 <div class="btns" style="display:flex;padding: 10px; justify-content: center; align-items: center; ">
-  <a href="" type="button" class="btn btn-outline-secondary me-5">View Queries</a>
+  <a href="{% url 'viewquery' %}" type="button" class="btn btn-outline-secondary me-5">View Queries</a>
   <a href="{% url 'moderator' %}" type="button" class="btn btn-outline-secondary me-2">Go To Moderator</a>
 </div>
-<div style="justify-content: center; align-items:center; display: flex; width: 70%;"> 
+<div style="height: 52vh;justify-content: center; align-items:top; display: flex; width: 70%;"> 
   <div class="row" >
     <div class="col-md">
       <div class="card card-body" style="width: 230%;">

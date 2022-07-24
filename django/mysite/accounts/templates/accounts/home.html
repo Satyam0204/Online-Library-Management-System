@@ -24,10 +24,16 @@
         color: black;
     }
     .booklink:hover{
-        color: #2774f0;
+        color: #d4550b;
         text-shadow: black;
     }
+    .card{
+        padding: 5px;
+        background-color: rgb(255, 234, 202);
+        margin: 5px;
+    }
     .card:hover{
+        background-color: rgba(134, 102, 62, 0.322);
         box-shadow:2px 2px 2px 1px grey;
         
     }
@@ -46,7 +52,7 @@
 </style>
 <div>
 
-    <div class="introcontainer"></div>
+    <div class="introcontainer" style="opacity: 0.77;"></div>
     
         <!-- <img id="bghome" src="{% static '/images/bghome.jpg' %}" alt=""> -->
         <div id="intro">
@@ -80,12 +86,12 @@
         {% for i in books %}
 
         
-        <div class="card" style=" margin: 5px;">
+        <div class="card" style="">
             <img style="height: 200px ; " src="{{i.image.url}}" class="card-img-top" alt="...">
             <div class="card-body" >
                 <a href="{% url 'bookdetail' i.id %}"  class="booklink">{{i.name}}</a>
-                <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
-                <p style="width: 10rem; font-weight: 279;"class="card-title">{{i.author}}</p>
+               
+                <p style="width: 10rem; font-weight: 280;"class="card-title">{{i.author}}</p>
                 
             </div>
 

@@ -96,8 +96,8 @@ def registerpage(request):
             if user is not None:
                 login(request, user)       
                 return redirect('home')
-            else:
-                messages.error(request,"Account was not created !!!")
+
+                
 
     context={'form':form}
     return render(request, 'accounts/register.html',context)
@@ -113,7 +113,7 @@ def loginpage(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-        else :
+        else:
             messages.info(request, "Username OR Password is incorrect")
             
     context={}
@@ -140,9 +140,7 @@ def createReview(request,pk):
     context={'form' : form, 'book':book, 'user':user }
     return render (request,'accounts/review_form.html',context)
 
-def userProfile(request):
-    context={}
-    return render (request,'accounts/userpage.html',context)
+
 
 
 
@@ -362,6 +360,13 @@ def saveQuery(request):
     query=request.POST.get('query')
     customerQuery.objects.create(emailid=email,query=query)
     return redirect('home')
+
+
+def viewQuery(request):
+    queries=customerQuery.objects.all()
+    context={'queries':queries}
+
+    return render(request,'accounts/queries.html',context)
 
 # def nav(request):
     

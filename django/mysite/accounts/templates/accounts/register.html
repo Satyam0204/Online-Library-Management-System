@@ -16,7 +16,7 @@
     align-items: center;
   }
 
-#login {
+.login {
     background: #080e12b0;
     /* border: 2px solid rgb(22, 101, 175); */
     margin: 50px;
@@ -83,10 +83,13 @@
     
     <button type="submit"name="Create User" class="btn ">Register</button>
     <br>
-    {{forms.errors}}
     
+    
+  </form>
+  <div class="logintext">
+    
+    {{form.errors}}</div>
     <p class="logintext">Already have an account? <a class="url" href="{% url 'login' %}">Login</a></p>
-</p>
-</form>
-</div>
+  </div>
+
 </body>

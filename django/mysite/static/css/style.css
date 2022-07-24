@@ -4,7 +4,7 @@
 
 
 body{
-    background-color: rgba(248, 248, 248, 0.904);
+    background-color: rgba(255, 232, 232, 0.904);
 }   
 /* /* #bghome{
     height: 100vh;
@@ -19,7 +19,7 @@ body{
 
     /* Full height */
     height: 100%;
-  
+    
     /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
