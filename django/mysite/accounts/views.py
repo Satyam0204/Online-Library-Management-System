@@ -187,9 +187,11 @@ def bookSearch(request):
     id=request.GET.get('name')
     category=request.GET.get('category')
     books_byname=Book.objects.filter(id=id)
+    bn=books_byname
     books_category=Book.objects.filter(category__name=category)
+    bc=books_category
     books=books_byname.union(books_category)
-    context={'books':books,'admin_users':admin_users}
+    context={'books':books,'admin_users':admin_users,'category':category,'bn':bn,'bc':bc}
     return render(request,'accounts/booksearch.html',context)
 
 
@@ -361,7 +363,8 @@ def saveQuery(request):
     customerQuery.objects.create(emailid=email,query=query)
     return redirect('home')
 
-
+@login_required(login_url='login')
+@allowedUsers(['admin'])
 def viewQuery(request):
     queries=customerQuery.objects.all()
     context={'queries':queries}

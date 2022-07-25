@@ -1,57 +1,67 @@
 {% load static %}
 
 <style>
-  .hello{
-    color:white;
-  }
-  
-  .nav-link:hover{
-    border-bottom:2px solid red;
-  }
-  ul {
-    align-items: center;
+  .navbar{
+    background-color: #c3c1bf;
 
-  }
+}
+.navbar-nav{
+    width: 100%;
+    justify-content: center;
+    padding-left: 200px;
+}
+.nav-item{
+    margin:auto 25px;
+
+}
 
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap" rel="stylesheet">
 
-<nav  class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    
-    <div class="container-fluid">
-      <img id="logo" src="{% static 'images/logo.png' %}" alt="" height="50px">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 " >
-          <li class="nav-item ">
-            <a class="nav-link "   aria-current="page" href="{% url 'home' %}">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light sticky-lg-top ">
+  <div class="container-fluid  ">
+    <a class="navbar-brand " href="{% url 'home' %}">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+      <ul class="navbar-nav  ">
+        <li class="nav-item ">
+          <a class="nav-link " aria-current="page" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link " aria-current="page" href="{% url 'booksearch' %}">Browse</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#footer">Contact</a>
+        </li>
+
+
+  
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="{% static 'images/profile.png' %}" alt="" srcset="">
+            </a>
+            <ul class="dropdown-menu dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="{% url 'mybooks' %}">My Issued Books</a></li>
+              <li><a class="dropdown-item" href="{% url 'myissuerequest' %}">My Issue Requests</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><p class="dropdown-item">Hello {{request.user}}</p></li>
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
           </li>
-       
-          <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="{% url 'mybooks' %}">myBooks</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'myissuerequest' %}">myIssueRequests</a>
-          </li>
-          
-          {% if request.user in admin_users %}
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'books' %}">Manage Books</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'customers' %}">Orders</a>
-          </li>
-          {%  endif %}
         </ul>
-        {% if user.is_authenticated %}
-        <span class="hello">Hello, {{request.user}}</span>
-        <a class="nav-link hello" href="{% url 'logout' %}">Logout</a>
-        {% else %}
-        <a class="btn btn-outline-success me-2" href="{% url 'login' %}" role="button">Login</a>
-        <a class="btn btn-outline-danger me-2" href="{% url 'register' %}" role="button">Register</a>
-        {% endif %}
       </div>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-sm btn-outline-secondary " type="submit">Search</button>
+
+      </form>
+
     </div>
-    
-  </nav>
+  </div>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    

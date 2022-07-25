@@ -32,18 +32,28 @@
 
 
 <br><br><br>
-<div class="card-group" style="flex-direction:column ;" >
+<div style="justify-content: center; align-items: center; display:flex ;">
+    {% if bn %}
+    {% for book in bn %}
+    <b> You searched for "{{book.name}} "</b>
+    {% endfor %}
+       
+    {% elif bc %}
+    
+    <b >You searched for "{{category}} "</b>
+    {% else %}
+    <b style="font-size:25px">No results matched</b>
+    {%endif%}
+</div>
+<br>
+<div class="card-group" style="flex-direction:row ;" >
     {% for i in books %}
-    <div style="justify-content: center; align-items: center; display:flex ;">
-    <b style>You searched for "{{i.name}} "</b>
-    </div>
-    <br>
 
     
     <div  class="card"  style="align-items: center;">
         <div id="bookbox">
 
-            <img style="height: 400px; width:250px;" src="{{i.image.url}}" class="card-img-top" alt="...">
+            <img style="height: 400px; width:300px;" src="{{i.image.url}}" class="card-img-top" alt="...">
             <div class="card-body" >
                 <a href="{% url 'bookdetail' i.id %}"  class="booklink card-title   ">{{i.name}}</a>
                 <br>
