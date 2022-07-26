@@ -6,6 +6,7 @@ from urllib import request
 from django.shortcuts import render, redirect  
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
+from more_itertools import quantify
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -15,6 +16,7 @@ from django.contrib.auth.models import Group
 from .filters import Bookfilter, Orderfilter
 from django.urls import reverse
 from django.http import HttpResponse,JsonResponse
+from django.db.models import Count
 # Create your views here.
 
 
@@ -164,6 +166,25 @@ def filterbook(request):
     filtered_books=Book.objects.none()
     category=Category.objects.all()
     languages=Language.objects.all()
+    
+    available= request.GET.get('available')
+    if (available=='available'):
+        available_book=Book.objects.filter(quantity__gt=0)
+        filtered_books=filtered_books.union(available_book)
+
+    liked_books=[]
+    liked= request.GET.get('likedbooks')
+    if (liked=='liked'):
+        for book in books:
+            upvotes=book.upvote.count()
+            downvotes=book.downvote.count()
+            votes=upvotes-downvotes
+            if (votes>0):
+                liked_books.append(book)
+        
+        filtered_books=filtered_books.union(liked_books)
+        
+
     categorys= request.GET.getlist('category[]')
     for i in categorys:
         category_book=Book.objects.filter(category__name=i)
@@ -175,6 +196,7 @@ def filterbook(request):
         language_book=Book.objects.filter(language__name=i)
         filtered_books=filtered_books.union(language_book)
 
+    print(available)
     books=filtered_books
     context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
     return render(request,'accounts/booksearch.html',context)
@@ -189,6 +211,7 @@ def browse(request):
     # books=myfilter.qs
     # categorys=request.GET.getlist('category')
     # print(categorys)
+   
 
     context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
     return render(request,'accounts/booksearch.html',context)

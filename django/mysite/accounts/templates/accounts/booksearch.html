@@ -18,73 +18,97 @@
 </style>
 
 {% block content %}
-<div id="bookfilter">
-    <form action="{% url 'filterbook' %}" method="GET">
-        {% csrf_token %}
-            <div id="categorycontainer">
-                <h5>Categories</h5>
-                {% for category in category %}
-                <label for="{{category.name}}">{{category.name}}</label>
-                <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
-                
-                <br>
-                {% endfor %}
 
-                <br>
+    <div class="row">
+
+        <div class="col-2 border">
+
+            <div id="bookfilter">
+                <form action="{% url 'filterbook' %}" method="GET">
+                    {% csrf_token %}
+                    
+                    <div id="categorycontainer">
+                        <h5>Categories</h5>
+                        {% for category in category %}
+                        <label for="{{category.name}}">{{category.name}}</label>
+                        <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
+                        
+                        <br>
+                        {% endfor %}
+                        
+                        <br>
+                    </div>
+                    <div id="languagecontainer">
+                        <h5>Languages</h5>
+                        {% for language in languages %}
+                        <label for="{{language.name}}">{{language.name}}</label>
+                        <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
+                        
+                        <br>
+                        {% endfor %}
+                        
+                        <br>
+                    </div>
+                    <div id="availabilty">
+                        <h5>Availabilty</h5>
+                        <label for="available">Available Only</label>
+                        <input type="checkbox" name="available" id="available" value="available">
+                    </div><br>
+                    <div id="likedbooks">
+                        <h5>Liked Books</h5>
+                        <label for="likedbooks">Books with postive like-ratio</label>
+                        <input type="checkbox" name="likedbooks" id="likedbooks" value="liked">
+                    </div><br>
+                    <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary" value="Apply Filters">
+                    
+                    <a class="btn btn-sm btn-outline-secondary "href="{% url 'browse' %}"role="button">Clear All Filters</a> 
+                </form>
             </div>
-            <div id="languagecontainer">
-                <h5>Languages</h5>
-                {% for language in languages %}
-                <label for="{{language.name}}">{{language.name}}</label>
-                <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
-                
-                <br>
+        </div>        
+        
+        <br><br><br>
+        {% comment %} <div style="justify-content: center; align-items: center; display:flex ;">
+            {% if bn %}
+            {% for book in bn %}
+            <b> You searched for "{{book.name}} "</b>
+            {% endfor %}
+            
+            {% elif bc %}
+            
+            <b >You searched for "{{category}} "</b>
+            {% else %}
+            <b style="font-size:25px">No results matched</b>
+            {%endif%}
+        </div> {% endcomment %}
+        <br>
+        <div class="col-10 border">
+
+            <div class="card-group" style="flex-direction:row ;" >
+                <div class="row row-cols-4 row-cols-md-6 g-4" >
+                    {% for i in books %}
+                    
+                    <div class="col">
+                        <div class="card">
+                            <img src="{{i.image.url}} " style="height:300px; "class="card-img-top " alt="...">
+                            <div class="card-body">
+                                <a href="{% url 'bookdetail' i.id %}"><h5 class="card-title booklink">{{i.name}}</h5></a>
+                                <p class="card-text">{{i.author}}</p>
+                            {% if i.quantity %}
+                            <p class="card-text " style="color: green;">IN STOCK</p>
+                            {% else %}
+                            <p class="card-text lh-sm" style="color: red;">NOT AVAILABLE</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
-
-
             </div>
-        <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary" value="Apply">
-    </form>
-</div>
-
-<br><br><br>
-{% comment %} <div style="justify-content: center; align-items: center; display:flex ;">
-    {% if bn %}
-    {% for book in bn %}
-    <b> You searched for "{{book.name}} "</b>
-    {% endfor %}
-       
-    {% elif bc %}
-    
-    <b >You searched for "{{category}} "</b>
-    {% else %}
-    <b style="font-size:25px">No results matched</b>
-    {%endif%}
-</div> {% endcomment %}
-<br>
-<div class="card-group" style="flex-direction:row ;" >
-    <div class="row row-cols-4 row-cols-md-6 g-4" >
-    {% for i in books %}
-
-      <div class="col">
-    <div class="card">
-      <img src="{{i.image.url}} " style="height:300px; "class="card-img-top " alt="...">
-      <div class="card-body">
-        <a href="{% url 'bookdetail' i.id %}"><h5 class="card-title booklink">{{i.name}}</h5></a>
-        <p class="card-text">{{i.author}}</p>
-        {% if i.quantity %}
-        <p class="card-text " style="color: green;">IN STOCK</p>
-        {% else %}
-        <p class="card-text lh-sm" style="color: red;">NOT AVAILABLE</p>
-        {% endif %}
-      </div>
+        </div>
+            
+            
+            
+        </div>
+        
     </div>
-</div>
-{% endfor %}
-</div>
-
-
-    
-</div>
 
 {% endblock %}
