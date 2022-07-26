@@ -26,13 +26,19 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class Language(models.Model):
+    name=models.CharField(null=True,max_length=200)
+
+    def __str__(self):
+        return self.name
+
 class Book(models.Model):
     
     name=models.CharField(max_length=200, null= True)
-    category=models.ForeignKey(Category,on_delete=models.CASCADE,max_length=200,null=True)
+    category=models.ManyToManyField(Category,related_name='category')
     author=models.CharField(max_length=200,null=True)
     quantity=models.IntegerField(null=True,blank=True)
-    language=models.CharField(max_length=100,null=True,blank=True)
+    language=models.ForeignKey(Language,on_delete=models.CASCADE,null=True,blank=True)
     dimennsions=models.CharField(max_length=100,null=True,blank=True)
     description=models.TextField(max_length=5000,null=True,blank=True)
     image=models.ImageField(default='defaultbook.png',null=True,blank=True)

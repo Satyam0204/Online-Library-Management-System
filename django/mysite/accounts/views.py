@@ -157,14 +157,43 @@ def deleteBook(request,pk):
 
 
 
-# def bookSearch(request):
-#     books=Book.objects.all()
-#     group_admin=Group.objects.get(name='admin')
-#     admin_users=User.objects.filter(groups=group_admin)
-#     myfilter=Bookfilter(request.GET,queryset=books)
-#     books=myfilter.qs
-#     context={'books':books,'myfilter':myfilter,'admin_users':admin_users}
-#     return render(request,'accounts/booksearch.html',context)
+def filterbook(request):
+    books=Book.objects.all()
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
+    filtered_books=Book.objects.none()
+    category=Category.objects.all()
+    languages=Language.objects.all()
+    categorys= request.GET.getlist('category[]')
+    for i in categorys:
+        category_book=Book.objects.filter(category__name=i)
+        filtered_books=filtered_books.union(category_book)
+
+
+    language= request.GET.getlist('language[]')
+    for i in language:
+        language_book=Book.objects.filter(language__name=i)
+        filtered_books=filtered_books.union(language_book)
+
+    books=filtered_books
+    context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
+    return render(request,'accounts/booksearch.html',context)
+
+def browse(request):
+    books=Book.objects.all()
+    category=Category.objects.all()
+    languages=Language.objects.all()
+    group_admin=Group.objects.get(name='admin')
+    admin_users=User.objects.filter(groups=group_admin)
+    # myfilter=Bookfilter(request.GET,queryset=books)
+    # books=myfilter.qs
+    # categorys=request.GET.getlist('category')
+    # print(categorys)
+
+    context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
+    return render(request,'accounts/booksearch.html',context)
+
+
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 

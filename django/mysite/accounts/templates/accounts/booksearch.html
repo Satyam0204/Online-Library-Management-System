@@ -1,38 +1,54 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
-{% block content %}
 <style>
-    
     .booklink{
         text-decoration: solid;
         
         color: black;
     }
     .booklink:hover{
-        color: #d4550b;
+        color: #2774f0;
         text-shadow: black;
-        
     }
-
-    
-    #bookbox{
-        
-
-        padding: 10px;
-        background-color: rgba(228, 198, 154, 0.897);
-    }
-    #bookbox:hover{
+    .card:hover{
         box-shadow:2px 2px 2px 1px grey;
-       
-        padding: 10px;
-        background-color: rgba(134, 102, 62, 0.322);
+        
     }
 
 </style>
 
+{% block content %}
+<div id="bookfilter">
+    <form action="{% url 'filterbook' %}" method="GET">
+        {% csrf_token %}
+            <div id="categorycontainer">
+                <h5>Categories</h5>
+                {% for category in category %}
+                <label for="{{category.name}}">{{category.name}}</label>
+                <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
+                
+                <br>
+                {% endfor %}
+
+                <br>
+            </div>
+            <div id="languagecontainer">
+                <h5>Languages</h5>
+                {% for language in languages %}
+                <label for="{{language.name}}">{{language.name}}</label>
+                <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
+                
+                <br>
+                {% endfor %}
+
+
+            </div>
+        <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary" value="Apply">
+    </form>
+</div>
 
 <br><br><br>
-<div style="justify-content: center; align-items: center; display:flex ;">
+{% comment %} <div style="justify-content: center; align-items: center; display:flex ;">
     {% if bn %}
     {% for book in bn %}
     <b> You searched for "{{book.name}} "</b>
@@ -44,29 +60,31 @@
     {% else %}
     <b style="font-size:25px">No results matched</b>
     {%endif%}
-</div>
+</div> {% endcomment %}
 <br>
 <div class="card-group" style="flex-direction:row ;" >
+    <div class="row row-cols-4 row-cols-md-6 g-4" >
     {% for i in books %}
 
-    
-    <div  class="card"  style="align-items: center;">
-        <div id="bookbox">
-
-            <img style="height: 400px; width:300px;" src="{{i.image.url}}" class="card-img-top" alt="...">
-            <div class="card-body" >
-                <a href="{% url 'bookdetail' i.id %}"  class="booklink card-title   ">{{i.name}}</a>
-                <br>
-                <!-- <h6 style="width: 10rem;"class="card-title">{{i.name}}</h6> -->
-                <p style="font-weight: 278;" class="card-title">{{i.author}}</p>
-            </div>
-            
-        </div>
-
-        
+      <div class="col">
+    <div class="card">
+      <img src="{{i.image.url}} " style="height:300px; "class="card-img-top " alt="...">
+      <div class="card-body">
+        <a href="{% url 'bookdetail' i.id %}"><h5 class="card-title booklink">{{i.name}}</h5></a>
+        <p class="card-text">{{i.author}}</p>
+        {% if i.quantity %}
+        <p class="card-text " style="color: green;">IN STOCK</p>
+        {% else %}
+        <p class="card-text lh-sm" style="color: red;">NOT AVAILABLE</p>
+        {% endif %}
+      </div>
     </div>
+</div>
+{% endfor %}
+</div>
+
+
     
-    {% endfor %}
 </div>
 
 {% endblock %}

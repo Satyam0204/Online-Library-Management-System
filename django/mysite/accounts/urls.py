@@ -31,6 +31,8 @@ urlpatterns = [
     path('saveorder/<str:pk>/',views.saveOrder,name='saveorder'),
     path('savequery/',views.saveQuery,name='savequery'),
     path('viewquery/',views.viewQuery,name='viewquery'),
+    path('browse/',views.browse,name='browse'),
+    path('filterbook/',views.filterbook,name='filterbook'),
     path('booksuggestions/',views.booksuggestions,name='booksuggestions'),
     
     # # path('navbar/',views.nav,name='navbar'),

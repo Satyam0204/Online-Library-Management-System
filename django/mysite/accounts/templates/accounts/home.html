@@ -8,45 +8,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <style>
-    /* .introcontainer{
-        justify-content: center;
-        align-items: center;
 
 
-    } */
-    /* #category{
-        margin-right: 40px;
-        height: 28px;
-    }
-
-    .booklink{
-        text-decoration: solid;
-        
-        color: black;
-    }
-    .booklink:hover{
-        color: #d4550b;
-        text-shadow: black;
-    }
-    .card{
-        padding: 5px;
-        background-color: rgb(250, 229, 202);
-        margin: 5px;
-    }
-    .card:hover{
-        background-color: rgba(134, 102, 62, 0.322);
-        box-shadow:2px 2px 2px 1px grey;
-        
-    }
-    .search{
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        
-        justify-content: center;
-        align-items: center;
-     
-    } */
 
         /* homepage css */
         #overview1{
@@ -55,6 +18,7 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position-y: center;
+            
             display: flex;
             
             justify-content: center;
@@ -62,7 +26,7 @@
             align-items: top;
          
             
-            height: 65vh;
+            height: 80vh;
         }
         .welcome{
             text-align: center;
@@ -78,9 +42,7 @@
 
             justify-content: space-evenly;
         }
-        .authorimgcontainer{
-            
-        }
+
         .authorimg{
             border-radius:200px;
             height: 250px;
@@ -133,17 +95,38 @@
             height:100px;
             width: 100px;
         }
+        .searchbox{
+            display: flex;
+            justify-content: center;
+            
+        }
+        .select2-selection__rendered{
 
+            font-size: x-large;
+        }
 
-
+   
 </style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
 <div class="introcontainer" id="overview1">
-    <div class="welcome">
+    
+    <div class="welcome" >
+        <div class="searchbox">
+            
+            <form class="search d-flex " action="{% url 'booksearch' %}" method="GET">
+                {% csrf_token %}
+                
+                <select id="name" style="width:550px; " class="name" name="name"></select>
+                
+                <button class="btn btn-sm btn-outline-secondary input mx-1" type="submit">Search</button>
+                
+            </form>
+        </div>
 
-        <b>
-            WELCOME TO THE WORLD OF BOOKS
-        </b>
+                <b >
+                    WELCOME TO THE WORLD OF BOOKS
+                </b>
     </div>
   </div>
   <div class="introcontainer" id="overview2">
@@ -203,7 +186,7 @@
     </div>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <!-- <script>
+    <script>
   
     $(document).ready(function () {
         $('.name').select2({
@@ -224,7 +207,7 @@
     });
 
     </script>
-     -->
+    
 
 
 {% endblock %}
