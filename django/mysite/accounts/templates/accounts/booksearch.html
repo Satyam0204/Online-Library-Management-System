@@ -1,21 +1,6 @@
 {% extends 'accounts/main.html' %}
 {% load static %}
-<style>
-    .booklink{
-        text-decoration: solid;
-        
-        color: black;
-    }
-    .booklink:hover{
-        color: #2774f0;
-        text-shadow: black;
-    }
-    .card:hover{
-        box-shadow:2px 2px 2px 1px grey;
-        
-    }
 
-</style>
 
 {% block content %}
 
@@ -28,38 +13,59 @@
                     {% csrf_token %}
                     
                     <div id="categorycontainer">
+                        <ul  style="list-style: none;">
                         <h5>Categories</h5>
-                        {% for category in category %}
-                        <label for="{{category.name}}">{{category.name}}</label>
-                        <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
-                        
-                        <br>
-                        {% endfor %}
-                        
-                        <br>
+
+                            {% for category in category %}
+                            <li >
+
+                                <label for="{{category.name}}">{{category.name}}</label>
+                                <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
+                            </li>
+                            
+                            
+                            {% endfor %}
+                        </ul>
                     </div>
                     <div id="languagecontainer">
-                        <h5>Languages</h5>
-                        {% for language in languages %}
-                        <label for="{{language.name}}">{{language.name}}</label>
-                        <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
-                        
-                        <br>
-                        {% endfor %}
-                        
-                        <br>
+                        <ul class="filter" style="list-style: none;">
+
+                            <h5>Languages</h5>
+                            {% for language in languages %}
+                            <li>
+
+                                <label for="{{language.name}}">{{language.name}}</label>
+                                <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
+                            </li>
+                            
+                            
+                            {% endfor %}
+                            
+                            
+                        </ul>
                     </div>
                     <div id="availabilty">
-                        <h5>Availabilty</h5>
-                        <label for="available">Available Only</label>
-                        <input type="checkbox" name="available" id="available" value="available">
-                    </div><br>
+                        <ul class="filter" style="list-style: none;">
+                            <h5>Availabilty</h5>
+                            <li>
+
+                                <label for="available">Available Only</label>
+                                <input type="checkbox" name="available" id="available" value="available">
+                            </li>
+                        </ul>
+                        </div>
                     <div id="likedbooks">
-                        <h5>Liked Books</h5>
-                        <label for="likedbooks">Books with postive like-ratio</label>
-                        <input type="checkbox" name="likedbooks" id="likedbooks" value="liked">
-                    </div><br>
-                    <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary" value="Apply Filters">
+                        <ul class="filter" style="list-style: none;">
+
+                            <h5>Upvoted Books</h5>
+                            <li>
+
+                                <label for="upvotedbooks">Books with postive upvote-ratio</label>
+                                <input type="checkbox" name="upvotedbooks" id="upvotedbooks" value="upvoted">
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary " value="Apply Filters"  id="filterbtn">
                     
                     <a class="btn btn-sm btn-outline-secondary "href="{% url 'browse' %}"role="button">Clear All Filters</a> 
                 </form>
@@ -83,15 +89,24 @@
         <br>
         <div class="col-10 border">
 
-            <div class="card-group" style="flex-direction:row ;" >
+            <div class="filtertags">
+                {% for filter in filters %}
+                    {% if filter is not None %}
+                    <span class="badge rounded-pill bg-secondary">{{filter}}</span>
+                    
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="card-group " >
                 <div class="row row-cols-4 row-cols-md-6 g-4" >
                     {% for i in books %}
                     
-                    <div class="col">
-                        <div class="card">
+                    <div class="col mx-4">
+                        <div class="card card-container" style="width: 280px;">
                             <img src="{{i.image.url}} " style="height:300px; "class="card-img-top " alt="...">
                             <div class="card-body">
-                                <a href="{% url 'bookdetail' i.id %}"><h5 class="card-title booklink">{{i.name}}</h5></a>
+                                <a href="{% url 'bookdetail' i.id %} " class="booklink"><h5 class="card-title ">{{i.name}}</h5></a>
                                 <p class="card-text">{{i.author}}</p>
                             {% if i.quantity %}
                             <p class="card-text " style="color: green;">IN STOCK</p>
@@ -111,4 +126,22 @@
         
     </div>
 
+
+    <style>
+        .booklink{
+            text-decoration: none;
+        }
+    
+        .card:hover{
+            box-shadow:2px 2px 2px 1px grey;
+            
+        }
+        .filter{
+            list-style: none;
+        }
+        .card-container{
+            
+    
+        }
+    </style>
 {% endblock %}

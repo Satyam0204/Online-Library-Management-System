@@ -151,10 +151,9 @@ def createReview(request,pk):
 
 def deleteBook(request,pk):
     book_delete=Book.objects.get(id=pk)
-    if request.method=='POST':
-        book_delete.delete()
-        return redirect('books')
-    return render (request,'accounts/delete.html',{'book_delete':book_delete})
+    book_delete.delete()
+    return redirect('books')
+ 
 
 
 
@@ -166,39 +165,47 @@ def filterbook(request):
     filtered_books=Book.objects.none()
     category=Category.objects.all()
     languages=Language.objects.all()
+    filters=[]
     
-    available= request.GET.get('available')
-    if (available=='available'):
-        available_book=Book.objects.filter(quantity__gt=0)
-        filtered_books=filtered_books.union(available_book)
-
-    liked_books=[]
-    liked= request.GET.get('likedbooks')
-    if (liked=='liked'):
-        for book in books:
-            upvotes=book.upvote.count()
-            downvotes=book.downvote.count()
-            votes=upvotes-downvotes
-            if (votes>0):
-                liked_books.append(book)
-        
-        filtered_books=filtered_books.union(liked_books)
         
 
     categorys= request.GET.getlist('category[]')
+    filters+=categorys
     for i in categorys:
         category_book=Book.objects.filter(category__name=i)
         filtered_books=filtered_books.union(category_book)
 
 
     language= request.GET.getlist('language[]')
+    filters+=language
     for i in language:
         language_book=Book.objects.filter(language__name=i)
         filtered_books=filtered_books.union(language_book)
 
-    print(available)
+    available= request.GET.get('available')
+    filters.append(available)
+    if (available=='available'):
+        available_book=Book.objects.filter(quantity__gt=0)
+        filtered_books=filtered_books.union(available_book)
+
+
+
+    upvoted_books=[]
+    upvoted= request.GET.get('upvotedbooks')
+    filters.append(upvoted)
+    if (upvoted=='upvoted'):
+        for book in books:
+            upvotes=book.upvote.count()
+            downvotes=book.downvote.count()
+            votes=upvotes-downvotes
+            if (votes>0):
+                upvoted_books.append(book)
+        
+        filtered_books=filtered_books.union(upvoted_books)
     books=filtered_books
-    context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
+    if(filters==[None, None]):
+        books=Book.objects.all()
+    context={'books':books,'admin_users':admin_users,'category':category,'languages':languages,'filters':filters}
     return render(request,'accounts/booksearch.html',context)
 
 def browse(request):
@@ -237,13 +244,12 @@ def bookSearch(request):
     group_admin=Group.objects.get(name='admin')
     admin_users=User.objects.filter(groups=group_admin)
     id=request.GET.get('name')
-    category=request.GET.get('category')
-    books_byname=Book.objects.filter(id=id)
-    bn=books_byname
-    books_category=Book.objects.filter(category__name=category)
-    bc=books_category
-    books=books_byname.union(books_category)
-    context={'books':books,'admin_users':admin_users,'category':category,'bn':bn,'bc':bc}
+    
+    books=Book.objects.filter(id=id)
+ 
+    category=Category.objects.all()
+    languages=Language.objects.all()
+    context={'books':books,'admin_users':admin_users,'category':category,'languages':languages}
     return render(request,'accounts/booksearch.html',context)
 
 

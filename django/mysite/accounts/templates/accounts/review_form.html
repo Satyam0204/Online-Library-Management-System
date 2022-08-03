@@ -57,7 +57,7 @@
         <form class="review" action="{% url 'addreview' book.id  %}" method="POST">
             
         
-            <h4 style="text-align:center; color: wheat; ">Review for {{book.name}} </h4>
+            <h4 style="text-align:center; color: wheat; ">Review for "{{book.name}}" </h4>
             <br>
             {% csrf_token %}
             <div style="display: none;">

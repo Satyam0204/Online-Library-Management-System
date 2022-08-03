@@ -45,6 +45,7 @@ class Book(models.Model):
     upvote=models.ManyToManyField(User,blank=True,related_name='upvote')
     downvote=models.ManyToManyField(User,blank=True,related_name='downvote')
     
+    
 
     def __str__(self):
         return self.name
@@ -65,8 +66,9 @@ class Order(models.Model):
     book=models.ForeignKey(Book, max_length=200, on_delete=models.SET_NULL,null=True)
     status=models.CharField(max_length=200, null=True,choices=STATUS)
     dateordered=models.DateTimeField(auto_now_add=True, null=True)
+     
     def __str__(self):
-        return self.book.name 
+        return self.book.name   
 
 class customerQuery(models.Model):
     emailid=models.EmailField(max_length=200,null=True,blank=True)

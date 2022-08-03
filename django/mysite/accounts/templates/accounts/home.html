@@ -2,10 +2,112 @@
 
  
 {% block content %}
+
+
+<div class="introcontainer" id="overview1">
+    
+    <div class="welcome" >
+        
+        <div class="searchbox">
+            
+            <form class="search d-flex " action="{% url 'booksearch' %}" method="GET">
+                {% csrf_token %}
+                
+                <select id="name" style="width:550px; " class="name" name="name"></select>
+                
+                <button class="btn btn-sm btn-outline-secondary  mx-1" type="submit">Search</button>
+                
+            </form>
+        </div>
+
+        <b >
+            WELCOME TO THE WORLD OF BOOKS
+        </b>
+    </div>
+</div>
+<div class="introcontainer" id="overview2">
+    <div id="authorcontainer">
+        <div class="welcome">
+            <p  >Get Books From Top Authors</p>
+        </div>
+        <div class="authors">
+            <div class="authorimgcontainer">
+                
+                <img class="authorimg" src="/static/images/author1.jpg" alt="" srcset="">
+                <span class="authorname"> <p class="autorname">J.K. Rowling</p></span>
+            </div>
+            <div class="authorimgcontainer">
+                
+                <img class="authorimg" src="/static/images/author2.jpg" alt="" srcset="">
+                <span class="authorname"><p class="autorname">Agatha Christie</p></span>
+                
+                </div>
+                <div class="authorimgcontainer">
+                    
+                    <img class="authorimg" src="/static/images/author3.jpg" alt="" srcset="">
+                    <span class="authorname"><p class="autorname">Steven King</p></span>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <div id="overview3" class="introcontainer">
+        <div class="info welcome">
+            Get on the Flow with the unique experience of online library through LIBRARIA.
+            Libraria provides the best books to issue at your own convinience. Read the best sellers at your home through Libraria.  
+        </div>  
+    </div>
+    <div id="overview4" class="introcontainer">
+        <div class="authors" style="margin: 100px;">
+            <div class="authorimgcontainer">
+                
+                <img class="iconimg" src="/static/images/book.png" alt="" srcset="">
+                <span class="authorname">Issue Books </span>
+            </div>
+            <div class="authorimgcontainer">
+                
+                <img class="iconimg" src="/static/images/customer.png" alt="" srcset="">
+                <span class="authorname">Customer Support 24 X 7</span>
+                
+            </div>
+            <div class="authorimgcontainer">
+                
+                <img class="iconimg" src="/static/images/terms.png" alt="" srcset="">
+                <span class="authorname">Policies And Terms</span>
+            </div>
+        </div>
+    </div>
+    
+</div>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    
+    $(document).ready(function () {
+        $('.name').select2({
+            ajax: {
+                url:" {% url 'booksuggestions' %}",
+                dataType: 'json',
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            console.log(item.name)
+                            return { text: item.name,id: item.id};
+                        })
+                    };
+                }
+            },
+            minimumInputLength: 1
+        });
+    });
+    
+</script>
+
 
 <style>
 
@@ -107,107 +209,7 @@
 
    
 </style>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>    
-<div class="introcontainer" id="overview1">
-    
-    <div class="welcome" >
-        <div class="searchbox">
-            
-            <form class="search d-flex " action="{% url 'booksearch' %}" method="GET">
-                {% csrf_token %}
-                
-                <select id="name" style="width:550px; " class="name" name="name"></select>
-                
-                <button class="btn btn-sm btn-outline-secondary input mx-1" type="submit">Search</button>
-                
-            </form>
-        </div>
-
-                <b >
-                    WELCOME TO THE WORLD OF BOOKS
-                </b>
-    </div>
-  </div>
-  <div class="introcontainer" id="overview2">
-        <div id="authorcontainer">
-            <div class="welcome">
-                <p  >Get Books From Top Authors</p>
-            </div>
-            <div class="authors">
-                <div class="authorimgcontainer">
-
-                    <img class="authorimg" src="/static/images/author1.jpg" alt="" srcset="">
-                    <span class="authorname"> <p class="autorname">J.K. Rowling</p></span>
-                </div>
-                <div class="authorimgcontainer">
-
-                    <img class="authorimg" src="/static/images/author2.jpg" alt="" srcset="">
-                    <span class="authorname"><p class="autorname">Agatha Christie</p></span>
-
-                </div>
-                <div class="authorimgcontainer">
-
-                    <img class="authorimg" src="/static/images/author3.jpg" alt="" srcset="">
-                    <span class="authorname"><p class="autorname">Steven King</p></span>
-                </div>
-
-
-            </div>
-        </div>
-  </div>
-  <div id="overview3" class="introcontainer">
-  <div class="info welcome">
-    Get on the Flow with the unique experience of online library through LIBRARIA.
-    Libraria provides the best books to issue at your own convinience. Read the best sellers at your home through Libraria.  
-  </div>  
-  </div>
-  <div id="overview4" class="introcontainer">
-    <div class="authors" style="margin: 100px;">
-        <div class="authorimgcontainer">
-
-            <img class="iconimg" src="/static/images/book.png" alt="" srcset="">
-            <span class="authorname">Issue Books </span>
-        </div>
-        <div class="authorimgcontainer">
-
-            <img class="iconimg" src="/static/images/customer.png" alt="" srcset="">
-            <span class="authorname">Customer Support 24 X 7</span>
-
-        </div>
-        <div class="authorimgcontainer">
-
-            <img class="iconimg" src="/static/images/terms.png" alt="" srcset="">
-            <span class="authorname">Policies And Terms</span>
-        </div>
-    </div>
-  </div>
-        
-    </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-  
-    $(document).ready(function () {
-        $('.name').select2({
-            ajax: {
-                url:" {% url 'booksuggestions' %}",
-                dataType: 'json',
-                processResults: function (data) {
-                    return {
-                        results: $.map(data, function (item) {
-                            console.log(item.name)
-                            return { text: item.name,id: item.id};
-                        })
-                    };
-                }
-            },
-            minimumInputLength: 1
-        });
-    });
-
-    </script>
-    
-
 
 {% endblock %}
+
+

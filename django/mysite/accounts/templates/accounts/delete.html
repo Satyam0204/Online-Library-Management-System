@@ -1,6 +1,0 @@
-<h5>Are you sure you want to delete {{book_delete.name}} ??</h5>
-<form action="{% url 'deletebook' book_delete.id %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Delete">
-    
-</form>
