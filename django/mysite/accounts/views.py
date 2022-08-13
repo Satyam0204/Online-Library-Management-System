@@ -233,9 +233,10 @@ def booksuggestions(request):
         term=request.GET.get('term')
         books=Book.objects.filter(name__icontains=term)
         response_content=list(books.values())
+        
 
         return JsonResponse(response_content,safe=False)
-    return render(request,'accounts/home.html')
+    
 
 
 
@@ -271,6 +272,7 @@ def bookDetail(request,pk):
     group_admin=Group.objects.get(name='admin')
     admin_users=User.objects.filter(groups=group_admin)
     book=Book.objects.get(id=pk)
+    reviews=book.review_set.all()
     user=request.user
     uv=book.upvote.all()
     dv=book.downvote.all()
@@ -280,7 +282,7 @@ def bookDetail(request,pk):
     votes=upvotes-downvotes
     pending=user.order_set.filter(book=book,status='Pending')
     issued=user.order_set.filter(book=book,status='Rented')
-    context={'book':book,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users}
+    context={'book':book,'reviews':reviews,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users}
     return render(request,'accounts/bookdetail.html',context)
 
 

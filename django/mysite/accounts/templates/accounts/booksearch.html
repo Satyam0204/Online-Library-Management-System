@@ -1,147 +1,165 @@
-{% extends 'accounts/main.html' %}
-{% load static %}
+{% extends 'accounts/main.html' %} {% load static %} {% block content %}
 
+<div class="row mt-3">
+  <div class="col-2 border">
+    <div id="bookfilter">
+      <form action="{% url 'filterbook' %}" method="GET">
+        {% csrf_token %}
 
-{% block content %}
+        <div id="categorycontainer">
+          <ul style="list-style: none">
+            <h5>Categories</h5>
 
-    <div class="row">
+            {% for category in category %}
+            <li>
+              <label for="{{category.name}}">{{category.name}}</label>
+              <input
+                type="checkbox"
+                id="{{category.name}}"
+                name="category[]"
+                value="{{category.name}}"
+              />
+            </li>
 
-        <div class="col-2 border">
-
-            <div id="bookfilter">
-                <form action="{% url 'filterbook' %}" method="GET">
-                    {% csrf_token %}
-                    
-                    <div id="categorycontainer">
-                        <ul  style="list-style: none;">
-                        <h5>Categories</h5>
-
-                            {% for category in category %}
-                            <li >
-
-                                <label for="{{category.name}}">{{category.name}}</label>
-                                <input type="checkbox" id="{{category.name}}" name="category[]" value="{{category.name}}" />
-                            </li>
-                            
-                            
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div id="languagecontainer">
-                        <ul class="filter" style="list-style: none;">
-
-                            <h5>Languages</h5>
-                            {% for language in languages %}
-                            <li>
-
-                                <label for="{{language.name}}">{{language.name}}</label>
-                                <input type="checkbox" id="{{language.name}}" name="language[]" value="{{language.name}}" />
-                            </li>
-                            
-                            
-                            {% endfor %}
-                            
-                            
-                        </ul>
-                    </div>
-                    <div id="availabilty">
-                        <ul class="filter" style="list-style: none;">
-                            <h5>Availabilty</h5>
-                            <li>
-
-                                <label for="available">Available Only</label>
-                                <input type="checkbox" name="available" id="available" value="available">
-                            </li>
-                        </ul>
-                        </div>
-                    <div id="likedbooks">
-                        <ul class="filter" style="list-style: none;">
-
-                            <h5>Upvoted Books</h5>
-                            <li>
-
-                                <label for="upvotedbooks">Books with postive upvote-ratio</label>
-                                <input type="checkbox" name="upvotedbooks" id="upvotedbooks" value="upvoted">
-                            </li>
-                        </ul>
-                    </div>
-                    <input type="submit" role="btn" class="btn btn-sm btn-outline-secondary " value="Apply Filters"  id="filterbtn">
-                    
-                    <a class="btn btn-sm btn-outline-secondary "href="{% url 'browse' %}"role="button">Clear All Filters</a> 
-                </form>
-            </div>
-        </div>        
-        
-        <br><br><br>
-        {% comment %} <div style="justify-content: center; align-items: center; display:flex ;">
-            {% if bn %}
-            {% for book in bn %}
-            <b> You searched for "{{book.name}} "</b>
             {% endfor %}
-            
-            {% elif bc %}
-            
-            <b >You searched for "{{category}} "</b>
-            {% else %}
-            <b style="font-size:25px">No results matched</b>
-            {%endif%}
-        </div> {% endcomment %}
-        <br>
-        <div class="col-10 border">
-
-            <div class="filtertags">
-                {% for filter in filters %}
-                    {% if filter is not None %}
-                    <span class="badge rounded-pill bg-secondary">{{filter}}</span>
-                    
-                    {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="card-group " >
-                <div class="row row-cols-4 row-cols-md-6 g-4" >
-                    {% for i in books %}
-                    
-                    <div class="col mx-4">
-                        <div class="card card-container" style="width: 280px;">
-                            <img src="{{i.image.url}} " style="height:300px; "class="card-img-top " alt="...">
-                            <div class="card-body">
-                                <a href="{% url 'bookdetail' i.id %} " class="booklink"><h5 class="card-title ">{{i.name}}</h5></a>
-                                <p class="card-text">{{i.author}}</p>
-                            {% if i.quantity %}
-                            <p class="card-text " style="color: green;">IN STOCK</p>
-                            {% else %}
-                            <p class="card-text lh-sm" style="color: red;">NOT AVAILABLE</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+          </ul>
         </div>
-            
-            
-            
+        <div id="languagecontainer">
+          <ul class="filter" style="list-style: none">
+            <h5>Languages</h5>
+            {% for language in languages %}
+            <li>
+              <label for="{{language.name}}">{{language.name}}</label>
+              <input
+                type="checkbox"
+                id="{{language.name}}"
+                name="language[]"
+                value="{{language.name}}"
+              />
+            </li>
+
+            {% endfor %}
+          </ul>
         </div>
-        
+        <div id="availabilty">
+          <ul class="filter" style="list-style: none">
+            <h5>Availabilty</h5>
+            <li>
+              <label for="available">Available Only</label>
+              <input
+                type="checkbox"
+                name="available"
+                id="available"
+                value="available"
+              />
+            </li>
+          </ul>
+        </div>
+        <div id="likedbooks">
+          <ul class="filter" style="list-style: none">
+            <h5>Upvoted Books</h5>
+            <li>
+              <label for="upvotedbooks">Books with postive upvote-ratio</label>
+              <input
+                type="checkbox"
+                name="upvotedbooks"
+                id="upvotedbooks"
+                value="upvoted"
+              />
+            </li>
+          </ul>
+        </div>
+        <input
+          type="submit"
+          role="btn"
+          class="btn themebtn mb-2"
+          style="margin-left: 30px"
+          value="Apply Filters"
+          id="filterbtn"
+        />
+      </form>
+    </div>
+  </div>
+
+  <br /><br /><br />
+  {% comment %}
+  <div style="justify-content: center; align-items: center; display: flex">
+    {% if bn %} {% for book in bn %}
+    <b> You searched for "{{book.name}} "</b>
+    {% endfor %} {% elif bc %}
+
+    <b>You searched for "{{category}} "</b>
+    {% else %}
+    <b style="font-size: 25px">No results matched</b>
+    {%endif%}
+  </div>
+  {% endcomment %}
+  <br />
+  <div class="col-10 border">
+    <div class="filtertags mt-4 mb-4">
+      {% for filter in filters %} {% if filter is not None %}
+      <span class="badge rounded-pill bg-secondary">{{filter}}</span>
+
+      {% endif %} {% endfor %} {% if filters is not None %}
+      <a
+        class="btn btn-sm btn-outline-secondary"
+        href="{% url 'browse' %}"
+        role="button"
+        >Clear All Filters</a
+      >
+      {% endif %}
     </div>
 
+    <div class="card-group">
+      <div class="row ">
+        {% for i in books %}
 
-    <style>
-        .booklink{
-            text-decoration: none;
-        }
-    
-        .card:hover{
-            box-shadow:2px 2px 2px 1px grey;
-            
-        }
-        .filter{
-            list-style: none;
-        }
-        .card-container{
-            
-    
-        }
-    </style>
+        <div class="col mx-2 mb-3">
+          <div class="card card-container" style="width: 280px">
+            <img
+              src="{{i.image.url}} "
+              style="height: 300px"
+              class="card-img-top"
+              alt="..."
+            />
+            <div class="card-body">
+              <a href="{% url 'bookdetail' i.id %} " class="booklink"
+                ><h5 class="card-title">{{i.name}}</h5></a
+              >
+              <p class="card-text">{{i.author}}</p>
+              {% if i.quantity %}
+              <p class="card-text" style="color: green">IN STOCK</p>
+              {% else %}
+              <p class="card-text lh-sm" style="color: red">NOT AVAILABLE</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .booklink {
+    text-decoration: none;
+  }
+
+  .card:hover {
+    box-shadow: 2px 2px 2px 1px grey;
+  }
+  .filter {
+    list-style: none;
+  }
+
+  .themebtn {
+    border: 2px solid #c3c1bf;
+  }
+  .themebtn:hover {
+    border: 2px solid #c3c1bf;
+    background-color: #c3c1bf;
+    color: white;
+  }
+</style>
 {% endblock %}

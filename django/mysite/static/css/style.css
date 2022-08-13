@@ -25,10 +25,10 @@ display: flex;
 
 background-image: url('/static/images/loginpage.jpeg');
 }
-.input{
+/* .input{
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.336);
-}
+} */
 .url{
     color: red;
 }
@@ -37,7 +37,7 @@ background-image: url('/static/images/loginpage.jpeg');
 }
 
 
-#id_name, #id_category{
+/* #id_name, #id_category{
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.541);
     color: rgba(255, 255, 255, 0.788);
@@ -45,7 +45,7 @@ background-image: url('/static/images/loginpage.jpeg');
 
 #id_category option{
     background-color: black;
-}
+} */
 #issue{
     color: rgb(14, 138, 70);
 
@@ -79,3 +79,11 @@ background-image: url('/static/images/loginpage.jpeg');
 .issueform{
     display:none
 }
+.themebtn{
+    border:1px solid #c3c1bf;
+  }
+.themebtn:hover{
+    border:1px solid #c3c1bf;
+    background-color: #c3c1bf;
+    color: white;
+  }

@@ -7,16 +7,18 @@
 <div class="row">
   <div class="col-md">
     <div class="card card-body">
+
       <table class="table table-sm">
+        <thead><h5>{{books.name}}</h5></thead>
         <tr>
           <th>Customer</th>
-          <th>Book</th>
+   
           <th>Review</th>
         </tr>
         {% for i in reviews %}
         <tr>
           <td>{{i.user}}</td>
-          <td>{{i.book.name}}</td>
+
           <td>{{i.Review}}</td>
         </tr>
 

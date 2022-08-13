@@ -30,15 +30,21 @@
                   <img src="{% static 'images/profile.png' %}" alt="" srcset="">
                 </a>
                 <ul class="dropdown-menu dropdown-menu dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                  <li><a class="dropdown-item" href="{% url 'mybooks' %}">My Issued Books</a></li>
-                  <li><a class="dropdown-item" href="{% url 'myissuerequest' %}">My Issue Requests</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><p class="dropdown-item">Hello {{request.user}}</p></li>
-                  {% if request.user in admin_users %}
-                  <li><a class="dropdown-item" href="{% url 'books' %}">Manage Books</a></li>
-                  <li><a class="dropdown-item" href="{% url 'customers' %}">Manage Orders</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'mybooks' %}">My Issued Books</a></li>
+                    <li><a class="dropdown-item" href="{% url 'myissuerequest' %}">My Issue Requests</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><p class="dropdown-item">Hello {{request.user}}</p></li>
+                    {% if request.user in admin_users %}
+                    <li><a class="dropdown-item" href="{% url 'books' %}">Manage Books</a></li>
+                    <li><a class="dropdown-item" href="{% url 'customers' %}">Manage Orders</a></li>
+                    {% endif %}
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                  {% else %}
+                    <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>
+
                   {% endif %}
-                  <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
                 </ul>
               </li>
             </ul>

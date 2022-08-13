@@ -1,10 +1,74 @@
 {% extends 'accounts/home.html' %}
 {% load static %}
 {% block content %}
+
+<br><br>
+<br>
+<div class="bookcontainer">
+    <div class="thisbook">
+
+        <div class="feedback">
+            <div class="votecontainer">
+                {% if request.user in uv %}
+                <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
+                {%else%}
+                <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+                {%endif%}
+                <p class="votes">{{votes}}</p>
+                {% if request.user in dv %}
+                <a href="{% url 'removedownvote' book.id %}"><img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes"></a>
+                {%else%}
+                <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
+                {%endif%}
+            </div>
+            <br><br><br><br>
+            <div class="review"> 
+                <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
+                
+            </div>
+        </div>
+    <div class="imgcontainer">
+        <img style="height: 550px; margin:10px; width: 400px; " src="{{book.image.url}}" alt="">
+    </div>
+    <div class="book">
+        <br>
+        <h2 style="display:flex; width:300px">{{book.name}}</h2>
+        <p>{{book.author}}</p>
+        <p>{{book.language}}</p>
+        <br><br><br><br>
+        <div class="btncontainer">
+            {% if pending %}
+            <h5 style="color: rgb(70, 70, 216);">Issual Request sent</h5>
+            {% elif issued %}
+            <h5 style="color: rgb(42, 238, 42);">Issued</h5>
+            {% elif book.quantity is 0 %}
+            <h5 style="color:rgb(226, 66, 66) ;">Not Available</h5>
+            {% else %}
+            <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
+            {% endif %}
+            
+        </div>
+        
+    </div>
+    </div>
+    <div class="desc">
+        
+        <b style="font-size: 1.25em;">About the book</b>
+        <p style="margin-top: 10px;">{{book.description}}</p>
+        <div class="reviews">
+            <h5>Reviews</h5>
+            {% for review in reviews %}
+                <p>{{review.user}}</p>
+                <p>{{review.Review}}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <style>
     .thisbook   {
         display: flex;
-        position: fixed;
+   
         right: 5%;
 
     }
@@ -60,61 +124,4 @@
         margin-top: 50px;
     }
     </style>
-<br><br>
-<br>
-<div class="bookcontainer">
-    <div class="thisbook">
-
-        <div class="feedback">
-            <div class="votecontainer">
-                {% if request.user in uv %}
-                <a href="{% url 'removeupvote' book.id %}"><img src="/static/images/Up_green_arrow.png" alt="" class="votes"></a>
-                {%else%}
-                <a href="{% url 'upvote' book.id %}" ><img src="/static/images/uparrow_black.png" alt="" class="votes"></a>
-                {%endif%}
-                <p class="votes">{{votes}}</p>
-                {% if request.user in dv %}
-                <a href="{% url 'removedownvote' book.id %}"><img style="transform: rotate(180deg);"  src="/static/images/arrow_up_red.png" alt="" class="votes"></a>
-                {%else%}
-                <a href="{% url 'downvote' book.id %}" ><img style="transform: rotate(180deg);" src="/static/images/uparrow_black.png" alt="" class="votes"></a>
-                {%endif%}
-            </div>
-            <br><br><br><br>
-            <div class="review"> 
-                <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
-                
-            </div>
-        </div>
-    <div class="imgcontainer">
-        <img style="height: 550px; margin:10px; width: 400px; " src="{{book.image.url}}" alt="">
-    </div>
-    <div class="book">
-        <br>
-        <h2>{{book.name}}</h2>
-        <p>{{book.author}}</p>
-        <p>{{book.language}}</p>
-        <br><br><br><br>
-        <div class="btncontainer">
-            {% if pending %}
-            <h5 style="color: rgb(70, 70, 216);">Issual Request sent</h5>
-            {% elif issued %}
-            <h5 style="color: rgb(42, 238, 42);">Issued</h5>
-            {% elif book.quantity is 0 %}
-            <h5 style="color:rgb(226, 66, 66) ;">Not Available</h5>
-            {% else %}
-            <a href="{% url 'issuebook' book.id %}" role="button" id="issue" class="btn">Issue Now</a>
-            {% endif %}
-            
-        </div>
-        
-    </div>
-    </div>
-    <div class="desc">
-        
-        <b style="font-size: 1.25em;">About the book</b>
-        <p style="margin-top: 10px;">{{book.description}}</p>
-    </div>
-</div>
-
-
 {% endblock %}
