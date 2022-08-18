@@ -1,11 +1,9 @@
-import email
-from email.mime import image
-from email.policy import default
-from operator import truediv, truth
-from telnetlib import STATUS
+
+
+
 
 from django.contrib.auth.models import User
-from unicodedata import category
+
 from django.db import models
 
 # Create your models here.

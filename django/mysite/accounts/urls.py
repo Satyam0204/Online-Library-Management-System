@@ -1,7 +1,6 @@
-import imp
-from pathlib import Path
-from django.contrib import admin
-from django.urls import path,include
+
+
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -14,7 +13,7 @@ urlpatterns = [
     path('addreview/<str:pk>/',views.createReview,name='addreview'),
     path('deletebook/<str:pk>/',views.deleteBook,name='deletebook'),
     path('booksearch/',views.bookSearch,name='booksearch'),
-    path('reviewpage/<str:pk>/',views.reviewPage,name='reviewpage'),
+ 
     path('bookdetail/<str:pk>/',views.bookDetail,name='bookdetail'),
     path('updatbook/<str:pk>/',views.updateBook,name='updatebook'),
     path('mybooks/',views.myBooks,name='mybooks'),

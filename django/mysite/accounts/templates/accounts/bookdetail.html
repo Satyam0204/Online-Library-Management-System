@@ -22,10 +22,7 @@
                 {%endif%}
             </div>
             <br><br><br><br>
-            <div class="review"> 
-                <a class="btn btn-outline-secondary me-2"href="{% url 'reviewpage' book.id %}"role="button">View Reviews</a>
-                
-            </div>
+
         </div>
     <div class="imgcontainer">
         <img style="height: 550px; margin:10px; width: 400px; " src="{{book.image.url}}" alt="">
@@ -54,16 +51,68 @@
     <div class="desc">
         
         <b style="font-size: 1.25em;">About the book</b>
-        <p style="margin-top: 10px;">{{book.description}}</p>
-        <div class="reviews">
+        <p class="description">{{book.description}}</p>
+        <div id="reviewsdiv">
+    
             <h5>Reviews</h5>
-            {% for review in reviews %}
-                <p>{{review.user}}</p>
-                <p>{{review.Review}}</p>
-            {% endfor %}
+
+                <p id="user{{ forloop.counter }}">{{reviews.0.user}}</p>
+                <p id="review{{ forloop.counter }}">{{reviews.0.Review}}</p>
+                <p id="user{{ forloop.counter }}">{{reviews.1.user}}</p>
+                <p id="review{{ forloop.counter }}">{{reviews.1.Review}}</p>
+                <p id="user{{ forloop.counter }}">{{reviews.2.user}}</p>
+                <p id="review{{ forloop.counter }}">{{reviews.2.Review}}</p>
+
+                {% if reviews.count > 3  %}
+                <button class="btn btn-sm btn-outline-secondary" id="view" onclick="addReview()">view all reviews</button>
+                {% endif %}
+
         </div>
     </div>
 </div>
+<script>
+
+
+    var size= "{{length}}"
+
+
+
+    
+    let reviews="{{reviews}}";
+    const userarr=[]
+    const reviewarr=[]
+{% for review in reviews %}
+
+    userarr.push("{{review.user}}")
+    reviewarr.push("{{review.Review}}")
+
+{%  endfor %}  
+
+
+
+
+const view=document.getElementById('view')
+
+
+var i=3;
+ function addReview(){
+    while(i<size){
+    console.log(i)
+    var html = ''
+    if(i<size){html += `<p>${userarr[i]}</p><p>${reviewarr[i]}</p>`}
+
+    document.getElementById('reviewsdiv').innerHTML += html
+    document.getElementById('view').style.display="none";
+    i++;
+
+
+};}
+
+
+
+    
+    
+</script>
 
 <style>
     .thisbook   {
@@ -122,6 +171,13 @@
     }
     .review{
         margin-top: 50px;
+    }
+    .description{
+        height: 30vh;
+        overflow-y: scroll;
+    }
+    .description::-webkit-scrollbar{
+        display: none;
     }
     </style>
 {% endblock %}

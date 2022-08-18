@@ -1,22 +1,22 @@
-from ast import Delete
-import re
 
-from unicodedata import name
-from urllib import request
+
+
+
+
 from django.shortcuts import render, redirect  
-from django.contrib.auth.forms import UserCreationForm
+
 from django.contrib.auth import authenticate, login, logout
-from more_itertools import quantify
+
 from .models import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import AddBook, AddCategory, AddReview, CreateUserForm,Issue
+from .forms import AddBook, AddCategory, AddReview, CreateUserForm
 from .decorators import unauthorizedUsers, allowedUsers
 from django.contrib.auth.models import Group
-from .filters import Bookfilter, Orderfilter
+from .filters import  Orderfilter
 from django.urls import reverse
-from django.http import HttpResponse,JsonResponse
-from django.db.models import Count
+from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -258,13 +258,7 @@ def bookSearch(request):
 @login_required(login_url='login')
 
 
-def reviewPage(request,pk):
-    group_admin=Group.objects.get(name='admin')
-    admin_users=User.objects.filter(groups=group_admin)
-    books=Book.objects.get(id=pk)
-    reviews=books.review_set.all()
-    context={'books':books,'reviews':reviews,'admin_users':admin_users}
-    return render(request,'accounts/reviewpage.html',context)
+
 
 
 @login_required(login_url='login')
@@ -273,6 +267,7 @@ def bookDetail(request,pk):
     admin_users=User.objects.filter(groups=group_admin)
     book=Book.objects.get(id=pk)
     reviews=book.review_set.all()
+    length=len(reviews)
     user=request.user
     uv=book.upvote.all()
     dv=book.downvote.all()
@@ -282,7 +277,7 @@ def bookDetail(request,pk):
     votes=upvotes-downvotes
     pending=user.order_set.filter(book=book,status='Pending')
     issued=user.order_set.filter(book=book,status='Rented')
-    context={'book':book,'reviews':reviews,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users}
+    context={'book':book,'reviews':reviews,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users,'length':length}
     return render(request,'accounts/bookdetail.html',context)
 
 
