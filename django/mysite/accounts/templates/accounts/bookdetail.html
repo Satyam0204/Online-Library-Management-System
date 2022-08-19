@@ -52,23 +52,87 @@
         
         <b style="font-size: 1.25em;">About the book</b>
         <p class="description">{{book.description}}</p>
-        <div id="reviewsdiv">
-    
-            <h5>Reviews</h5>
-
-                <p id="user{{ forloop.counter }}">{{reviews.0.user}}</p>
-                <p id="review{{ forloop.counter }}">{{reviews.0.Review}}</p>
-                <p id="user{{ forloop.counter }}">{{reviews.1.user}}</p>
-                <p id="review{{ forloop.counter }}">{{reviews.1.Review}}</p>
-                <p id="user{{ forloop.counter }}">{{reviews.2.user}}</p>
-                <p id="review{{ forloop.counter }}">{{reviews.2.Review}}</p>
-
-                {% if reviews.count > 3  %}
-                <button class="btn btn-sm btn-outline-secondary" id="view" onclick="addReview()">view all reviews</button>
-                {% endif %}
-
-        </div>
     </div>
+</div>
+
+<div class="similarbooks">
+    <h5>Similar Books</h5>
+    <div class="card-group">
+        <div class="row ">
+          {% for i in similar_books %}
+  
+          <div class="col mx-2 mb-3">
+            <div class="card card-container" style="width: 280px">
+              <img
+                src="{{i.image.url}} "
+                style="height: 200px"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <a href="{% url 'bookdetail' i.id %} " class="booklink text-center"
+                  ><h5 class="card-title">{{i.name}}</h5></a
+                >
+                <p class="card-text text-center">{{i.author}}</p>
+                {% if i.quantity %}
+                <p class="card-text text-center" style="color: green">IN STOCK</p>
+                {% else %}
+                <p class="card-text text-center" style="color: red">NOT AVAILABLE</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+        
+
+</div>
+
+
+<div id="reviewsdiv">
+
+    <h5>Reviews</h5>
+    {% if  reviews.0.user %}
+        <div class="reviewdiv border">
+            <div class="reviewhead ">
+                <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
+                <p class="reviewuser">{{reviews.0.user}}</p>
+            </div>
+            <div class="reviewbody">
+
+                <p class="reviewtext">{{reviews.0.Review}}</p>
+            </div>
+        </div>
+    {% elif reviews.1.user %}
+        <div class="reviewdiv border">
+            <div class="reviewhead ">
+                <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
+                <p class="reviewuser">{{reviews.1.user}}</p>
+            </div>
+            <div class="reviewbody">
+
+                <p class="reviewtext">{{reviews.1.Review}}</p>
+            </div>
+        </div>
+    {% elif review.2.user %}
+        <div class="reviewdiv border">
+            <div class="reviewhead ">
+                <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
+                <p class="reviewuser">{{reviews.2.user}}</p>
+            </div>
+            <div class="reviewbody">
+
+                <p class="reviewtext">{{reviews.2.Review}}</p>
+            </div>
+        </div>
+
+    {% endif %}
+
+        {% if reviews.count > 3  %}
+        <button class="btn btn-sm btn-link" id="view" onclick="addReview()">view all reviews</button>
+        {% endif %}
+
 </div>
 <script>
 
@@ -81,32 +145,40 @@
     let reviews="{{reviews}}";
     const userarr=[]
     const reviewarr=[]
-{% for review in reviews %}
+    {% for review in reviews %}
 
     userarr.push("{{review.user}}")
     reviewarr.push("{{review.Review}}")
 
-{%  endfor %}  
+    {%  endfor %}  
 
 
 
 
-const view=document.getElementById('view')
+    const view=document.getElementById('view')
 
 
-var i=3;
- function addReview(){
-    while(i<size){
-    console.log(i)
-    var html = ''
-    if(i<size){html += `<p>${userarr[i]}</p><p>${reviewarr[i]}</p>`}
+    var i=3;
+    function addReview(){
+        while(i<size){
+        console.log(i)
+        var html = ''
+        if(i<size){html += `<div class="reviewdiv border">
+                                <div class="reviewhead ">
+                                    <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
+                                        <p class="reviewuser">${userarr[i]}</p>
+                                </div>
+                                <div class="reviewbody">
+                                    <p class="reviewtext">${reviewarr[i ]}</p>
+                                </div>
+                            </div>`}
 
-    document.getElementById('reviewsdiv').innerHTML += html
-    document.getElementById('view').style.display="none";
-    i++;
+        document.getElementById('reviewsdiv').innerHTML += html
+        document.getElementById('view').style.display="none";
+        i++;
 
 
-};}
+    };}
 
 
 
@@ -117,7 +189,7 @@ var i=3;
 <style>
     .thisbook   {
         display: flex;
-   
+        position: static;
         right: 5%;
 
     }
@@ -136,7 +208,6 @@ var i=3;
     }
     .btncontainer{
         display: flex;
-        padding: 1em;
         margin-top: 50px;
     }
     form{
@@ -173,11 +244,75 @@ var i=3;
         margin-top: 50px;
     }
     .description{
-        height: 30vh;
+        margin-bottom: 100px;
+        height: 76vh;
         overflow-y: scroll;
     }
     .description::-webkit-scrollbar{
         display: none;
     }
+
+
+    /* review */
+    #reviewsdiv{
+        margin: 20px;
+        width: 90%;
+    }
+    .reviewdiv{
+        margin: 20px auto;
+    }
+    
+    .reviewhead img {
+        height: 30px;
+        margin-right: 10px;
+    }
+    .reviewhead{
+        display: flex;
+       
+        padding-left: 10px;
+        
+    }
+    .reviewuser{
+        font-weight: 450;
+
+    }
+    .reviewbody{
+        background-color: rgba(247, 238, 238, 0.925);
+        padding-left: 50px;
+        
+    }
+    .reviewtext{
+        margin: 0;
+    }
+    /* similar books */
+    .similarbooks{
+        margin: 30px;
+    }
+
+    .booklink {
+    text-decoration: none;
+  }
+  .booklink:hover{
+    color: rgb(77, 37, 37);
+  }
+
+  .card:hover {
+    box-shadow: 2px 2px 2px 1px grey;
+  }
+
+  .card-container:hover{
+    background-color: #c3c1bf96
+  }
+
+  .themebtn {
+    border: 2px solid #c3c1bf;
+  }
+  .themebtn:hover {
+    border: 2px solid #c3c1bf;
+    background-color: #c3c1bf;
+    color: white;
+  }
+
+
     </style>
 {% endblock %}

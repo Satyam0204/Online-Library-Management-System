@@ -123,14 +123,14 @@
               alt="..."
             />
             <div class="card-body">
-              <a href="{% url 'bookdetail' i.id %} " class="booklink"
+              <a href="{% url 'bookdetail' i.id %} " class="booklink text-center"
                 ><h5 class="card-title">{{i.name}}</h5></a
               >
-              <p class="card-text">{{i.author}}</p>
+              <p class="card-text text-center">{{i.author}}</p>
               {% if i.quantity %}
-              <p class="card-text" style="color: green">IN STOCK</p>
+              <p class="card-text text-center" style="color: green">IN STOCK</p>
               {% else %}
-              <p class="card-text lh-sm" style="color: red">NOT AVAILABLE</p>
+              <p class="card-text text-center" style="color: red">NOT AVAILABLE</p>
               {% endif %}
             </div>
           </div>
@@ -145,12 +145,18 @@
   .booklink {
     text-decoration: none;
   }
+  .booklink:hover{
+    color: rgb(77, 37, 37);
+  }
 
   .card:hover {
     box-shadow: 2px 2px 2px 1px grey;
   }
   .filter {
     list-style: none;
+  }
+  .card-container:hover{
+    background-color: #c3c1bf96
   }
 
   .themebtn {

@@ -3,6 +3,7 @@
 
 
 
+from unicodedata import category
 from django.shortcuts import render, redirect  
 
 from django.contrib.auth import authenticate, login, logout
@@ -271,13 +272,21 @@ def bookDetail(request,pk):
     user=request.user
     uv=book.upvote.all()
     dv=book.downvote.all()
-    
+    similar_categories=list(book.category.all())
+    similar_books=Book.objects.none()
+    for category in similar_categories:
+
+        
+        similar_cat_books=Book.objects.filter(category__name=category.name).exclude(name=book.name)
+        
+        similar_books=similar_books.union(similar_cat_books)
+
     upvotes=book.upvote.count()
     downvotes=book.downvote.count()
     votes=upvotes-downvotes
     pending=user.order_set.filter(book=book,status='Pending')
     issued=user.order_set.filter(book=book,status='Rented')
-    context={'book':book,'reviews':reviews,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users,'length':length}
+    context={'book':book,'similar_books':similar_books,'reviews':reviews,'pending':pending,'issued':issued,'votes':votes,'uv':uv,'dv':dv,'admin_users':admin_users,'length':length}
     return render(request,'accounts/bookdetail.html',context)
 
 
