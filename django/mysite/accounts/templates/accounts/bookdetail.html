@@ -104,7 +104,10 @@
                 <p class="reviewtext">{{reviews.0.Review}}</p>
             </div>
         </div>
-    {% elif reviews.1.user %}
+        {% else %}
+        <p>No reviews yet</p>
+    {% endif %}
+    {% if reviews.1.user %}
         <div class="reviewdiv border">
             <div class="reviewhead ">
                 <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
@@ -115,7 +118,8 @@
                 <p class="reviewtext">{{reviews.1.Review}}</p>
             </div>
         </div>
-    {% elif review.2.user %}
+    {% endif %}
+    {% if reviews.2.user %}
         <div class="reviewdiv border">
             <div class="reviewhead ">
                 <img src="{% static '/images/user.png' %}" alt="" class="reviwimg">
@@ -129,11 +133,12 @@
 
     {% endif %}
 
-        {% if reviews.count > 3  %}
+    {% if reviews.count > 3  %}
         <button class="btn btn-sm btn-link" id="view" onclick="addReview()">view all reviews</button>
-        {% endif %}
+    {% endif %}
 
 </div>
+
 <script>
 
 
@@ -208,7 +213,7 @@
     }
     .btncontainer{
         display: flex;
-        margin-top: 50px;
+        margin-top: 198px;
     }
     form{
         margin: 5px;
