@@ -5,7 +5,7 @@
 
 Libraria is an Online Library that helps users to borrow books at ease with the digitalization of the library management system. 
 
-### Preview
+## Preview
 ![Untitled design](https://github.com/Satyam0204/Online-Library-Management-System/assets/97899114/1e5acf25-ed56-4026-a9e5-82d3683ce096)
 
 
