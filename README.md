@@ -1,3 +1,5 @@
+# <img src="https://img.shields.io/badge/HTML-239120?style=for-the-badge&logo=html5&logoColor=white"></img> <img src="https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white"></img> <img src="https://img.shields.io/badge/JAVASCRIPT-239120?style=for-the-badge&logo=javascript&logoColor=white"></img> ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+
 
 # Libraria
 
