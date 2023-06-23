@@ -33,6 +33,7 @@ urlpatterns = [
     path('browse/',views.browse,name='browse'),
     path('filterbook/',views.filterbook,name='filterbook'),
     path('booksuggestions/',views.booksuggestions,name='booksuggestions'),
+    path('test',views.test),
     
     # # path('navbar/',views.nav,name='navbar'),
    

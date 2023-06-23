@@ -20,6 +20,9 @@ from django.http import JsonResponse
 
 # Create your views here.
 
+def test(request):
+    return render(request,'accounts/test.html')
+
 
 def main():
     group_customer=Group.objects.get(name='customer')

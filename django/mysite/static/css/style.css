@@ -33,7 +33,7 @@ background-image: url('/static/images/loginpage.jpeg');
     color: red;
 }
 .logintext{
-    color: darkorange;
+    color: rgb(66, 112, 93);
 }
 
 
@@ -87,3 +87,8 @@ background-image: url('/static/images/loginpage.jpeg');
     background-color: #c3c1bf;
     color: white;
   }
+
+#testfont{
+    font-family: cursive;
+    color: rgb(73, 212, 155);
+}
