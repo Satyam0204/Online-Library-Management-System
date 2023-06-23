@@ -51,3 +51,7 @@ Start server
 ```
 python3 manage.py runserver 
 ```
+
+
+## Authors:
+ [Satyam0204](https://www.github.com/Satyam0204)
